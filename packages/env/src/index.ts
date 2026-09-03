@@ -4,4 +4,4 @@
  * @module @tenets/env
  */
 
-export * from './typed-env/index';
+export * from './typed-env/index.js';

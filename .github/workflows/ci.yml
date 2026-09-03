@@ -21,3 +21,10 @@ jobs:
       - run: npm test
       - run: npm run build --workspaces
       - run: npm pack --dry-run --workspaces
+      # ESM packaging smoke: every package's built entry must import under plain Node.
+      - run: |
+          node -e "await import('./packages/result/dist/index.js')"
+          node -e "await import('./packages/invariant/dist/index.js')"
+          node -e "await import('./packages/env/dist/index.js')"
+          node -e "await import('./packages/env/dist/typed-env/next.js')"
+          node -e "await import('./packages/env/dist/node.js')"

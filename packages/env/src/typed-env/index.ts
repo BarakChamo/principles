@@ -6,12 +6,12 @@
 
 import { z } from 'zod';
 
-import { EnvDefinitionError } from './core';
-import type { EnvCheck, EnvObjectSchema, EnvSchema } from './core';
+import { EnvDefinitionError } from './core.js';
+import type { EnvCheck, EnvObjectSchema, EnvSchema } from './core.js';
 
-export { EnvValidationError, defineEnv, parseEnv } from './core';
+export { EnvValidationError, defineEnv, parseEnv } from './core.js';
 export { EnvDefinitionError };
-export type { EnvCheck, EnvObjectSchema } from './core';
+export type { EnvCheck, EnvObjectSchema } from './core.js';
 
 /**
  * @description Zod re-exported for composing environment contracts.
@@ -34,7 +34,7 @@ export type {
 	EnvSourceValue,
 	ParseEnvOptions,
 	ServerEnvOutput,
-} from './core';
+} from './core.js';
 
 /** @description Required string environment value. */
 export const stringValue = z.string();

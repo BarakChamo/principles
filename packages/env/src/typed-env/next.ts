@@ -5,7 +5,7 @@
  * @module @tenets/env/next
  */
 
-import { defineEnv, parseEnv } from './core';
+import { defineEnv, parseEnv } from './core.js';
 import type {
 	AnyEnvDefinition,
 	ClientEnvOutput,
@@ -15,7 +15,7 @@ import type {
 	EnvSourceValue,
 	ParseEnvOptions,
 	ServerEnvOutput,
-} from './core';
+} from './core.js';
 
 /** @description Prefix required for client-visible Next.js environment variables. */
 export const NEXT_PUBLIC_PREFIX = 'NEXT_PUBLIC_' as const;
