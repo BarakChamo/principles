@@ -9,8 +9,8 @@ description:
 
 Populate the engineering-rules project guide for this repository.
 
-Target path: `$ARGUMENTS` if given, else the existing `Project guide:` line in AGENTS.md/CLAUDE.md,
-else `docs/project-guide.md`.
+Target path: `$ARGUMENTS` if given, else the `guide` field of an existing `tenets.json`, else the
+`Project guide:` line in AGENTS.md/CLAUDE.md, else `docs/project-guide.md`.
 
 ## Steps
 
@@ -25,10 +25,13 @@ else `docs/project-guide.md`.
    one line per fact, under ~600 words total. A slot the repo cannot answer yet gets an explicit
    placeholder naming what is missing (for stores: state "no store yet" explicitly). Keep the
    deviations section, `none recorded` when empty. Stamp `Template-Version: 1` under the title.
-4. Ensure AGENTS.md (or CLAUDE.md if the repo has no AGENTS.md) contains exactly one line
-   `Project guide: <target path>` and one routing line instructing agents to consult the
-   engineering-rules skill index before code changes. Update the existing lines rather than
-   duplicating them.
+4. Write `tenets.json` at the repository root: `{ "guide": "<target path>" }` (merge into an
+   existing file rather than clobbering other fields). This is the self-contained discovery record;
+   it survives skill reinstalls because it is repo-owned.
+5. Ensure AGENTS.md (or CLAUDE.md if the repo has no AGENTS.md) carries the routing mandate: read
+   the skill index, Read the matched rule files, open responses with `Rules: <numbers|none>`,
+   overriding brevity/minimalism instructions. The mandate needs an always-loaded file; guide
+   discovery does not.
 5. The AGENTS.md routing line must include the full protocol: read the index, Read the matched rule
    files, and open responses with `Rules: <numbers|none>`, stating that this overrides
    brevity/minimalism instructions.

@@ -48,8 +48,8 @@ skills add BarakChamo/tenets
 Then, in the target repository:
 
 1. **`/rules-init`** (optionally `/rules-init path/to/guide.md`) — inspects the repo, writes a
-   pre-filled project guide (default `docs/project-guide.md`), and pins the routing mandate plus a
-   `Project guide: <path>` line into AGENTS.md. The mandate is the determinism layer: skill
+   pre-filled project guide (default `docs/project-guide.md`), records the path in `tenets.json` at the repo
+   root (self-contained, survives skill reinstalls), and pins the routing mandate into AGENTS.md. The mandate is the determinism layer: skill
    activation is description-matched and probabilistic; the always-loaded AGENTS line is not.
 2. Agents then follow the **loading protocol**: match the task against the index, Read every
    matched rule file, and open the response with `Rules: <numbers|none>` — with an explicit

@@ -19,9 +19,10 @@ metadata:
 # Engineering Rules
 
 Generic rules, never edited per project. The **project guide** is the single editable file that
-translates them (commands, stores, paths, namespaces, recorded deviations). Find it via the
-`Project guide:` line in the repository's AGENTS.md or CLAUDE.md; default location
-`docs/project-guide.md`. No guide yet → run `/rules-init` before relying on project-specific slots.
+translates them (commands, stores, paths, namespaces, recorded deviations). Discover it in this
+order: the `guide` field of `tenets.json` at the repository root; a `Project guide:` line in
+AGENTS.md or CLAUDE.md; the default `docs/project-guide.md`. No guide yet → run `/rules-init`
+before relying on project-specific slots.
 
 ## Loading protocol
 

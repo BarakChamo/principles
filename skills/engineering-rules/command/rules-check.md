@@ -9,8 +9,9 @@ description:
 
 Audit this repository's engineering-rules project guide.
 
-Locate it via the `Project guide:` line in AGENTS.md/CLAUDE.md (default `docs/project-guide.md`);
-missing guide → report that and suggest `/rules-init`.
+Locate it via `tenets.json`'s `guide` field at the repository root, else the `Project guide:` line
+in AGENTS.md/CLAUDE.md, else the default `docs/project-guide.md`; missing guide → report that and
+suggest `/rules-init`.
 
 ## Checks
 

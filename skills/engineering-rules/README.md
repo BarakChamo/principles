@@ -17,8 +17,9 @@ npm i -D @tenets/skills && npx skills experimental_sync
 ```
 
 Then in the target repository run `/rules-init` (optionally `/rules-init path/to/guide.md`). It
-writes the project guide, pre-filled from the repo, and pins two lines in AGENTS.md: the
-`Project guide:` path and the routing imperative that makes index loading deterministic. Audit or
+writes the project guide, pre-filled from the repo, records the guide path in `tenets.json` at the repo root
+(self-contained, survives skill reinstalls), and pins the routing imperative into AGENTS.md for
+deterministic index loading. Audit or
 upgrade later with `/rules-check`.
 
 ## Contract the project must satisfy
