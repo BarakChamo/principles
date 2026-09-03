@@ -12,7 +12,7 @@ deviates (coverage as signal, tool-native over zero-dependency).
 ## Install
 
 ```sh
-skills add BarakChamo/engineering-rules
+skills add BarakChamo/principles
 ```
 
 Then in the target repository run `/rules-init` (optionally `/rules-init path/to/guide.md`). It
@@ -28,8 +28,9 @@ by the rules themselves (Rule 7.6):
 - `Result<T, E>` / `ResultAsync<T, E>` with `ok`, `err`, and consumed-result semantics,
 - `invariant(condition, message)` throwing `InvariantError`.
 
-Ship those exact APIs in any package you like and name their location in the guide. Dependency-free
-reference implementations live in this repository's `reference/` directory — copy them in as-is.
+Ship those exact APIs in any package you like and name their location in the guide. This repository
+provides them as `@principles/result` and `@principles/invariant` under `packages/` — copy them in
+or depend on them directly.
 
 ## Layout
 

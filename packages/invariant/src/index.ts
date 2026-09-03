@@ -1,7 +1,7 @@
 /**
  * @description Assertion primitive for impossible internal states with configurable diagnostics.
  *
- * @module your-namespace/invariant
+ * @module @principles/invariant
  */
 
 /** @description Default stable error code used by invariant failures. */

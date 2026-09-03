@@ -1,7 +1,7 @@
 /**
  * @description Typed Result and ResultAsync primitives for recoverable failures.
  *
- * @module your-namespace/result
+ * @module @principles/result
  */
 
 /**

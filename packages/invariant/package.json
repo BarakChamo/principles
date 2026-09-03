@@ -1,0 +1,12 @@
+{
+	"name": "@principles/invariant",
+	"version": "0.1.0",
+	"description": "Assertion primitive for impossible internal states, throwing InvariantError — the API surface the principles ruleset requires (Rule 7.6).",
+	"license": "MIT",
+	"type": "module",
+	"sideEffects": false,
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"files": ["src"]
+}

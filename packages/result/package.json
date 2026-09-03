@@ -1,0 +1,12 @@
+{
+	"name": "@principles/result",
+	"version": "0.1.0",
+	"description": "Typed Result and ResultAsync primitives for recoverable failures — the API surface the principles ruleset requires (Rule 7.6).",
+	"license": "MIT",
+	"type": "module",
+	"sideEffects": false,
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"files": ["src"]
+}

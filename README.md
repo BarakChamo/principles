@@ -1,58 +1,78 @@
-# engineering-rules
+# principles
 
-A generic, distilled engineering ruleset for TypeScript monorepos, packaged as an agent skill:
-13 rules (~5,900 words) behind a trigger-routing index with a measured loading protocol, one
-editable per-project translation file (the project guide), two setup/audit commands, and an eval
-suite.
+An engineering ruleset for TypeScript monorepos, distilled from the canon and packaged as an agent
+skill: **13 generic rules behind a trigger-routing index, one editable per-project translation file,
+two setup commands, the two primitive packages the rules require, and an eval suite** that measures
+whether agents actually load and follow the rules.
 
-Distilled from tiger-style, design-by-contract, railway-oriented programming and result types,
-Ousterhout's deep modules, behavioral TDD/BDD, DORA capabilities, DDIA-style data modeling, and
-twelve-factor/serverless practice — with recorded calibrations where the set deliberately deviates
-(coverage as signal, tool-native over zero-dependency).
+Built for coding agents first: rules are dense, anchored, and loaded per task (2–4 files,
+~1.5–2.5k tokens) rather than crammed into an always-on context file. Humans get the same benefit —
+a small, opinionated, internally consistent standard with its deviations written down.
 
-## Install
+## The principles behind the rules
+
+Each rule distills a respected source, keeping its teeth and recording every deliberate deviation:
+
+| Rule | Core principle | Primary sources |
+| --- | --- | --- |
+| 01 Coding Philosophy | Correctness, reviewability, and agent legibility before speed; YAGNI → KISS → DRY in that order; deleted code leaves no shadows | Ousterhout, XP |
+| 02 Error Handling | Every failure lives in exactly one tier — boundary schema, invariant, or typed `Result` — and assertions guard **both ends** of an interaction (the airlock); an invariant failure is never caught to recover | Design by Contract (Meyer), TigerBeetle's tiger-style, railway-oriented programming (Wlaschin), result-type practice |
+| 03 Function Design | Flat, bounded, boring control flow; deep modules that hide one volatile decision behind one operation; thin protocol wrappers | Ousterhout's *A Philosophy of Software Design*, tiger-style control-flow discipline |
+| 04 Testing | Examples derived from the requirement become the test list; behavioral red-green-refactor; coverage is feedback, never a target — a deliberate calibration away from safety-critical test-per-function mandates | TDD (Beck), BDD discovery/formulation (Cucumber), contract testing |
+| 05 Documentation | Document why and contracts, never restate code; preambles on every owned file; docs that lie are worse than none | living-documentation practice |
+| 06 Learnings Process | Non-obvious discoveries go to an inbox before curation; three failed attempts or ten stuck minutes triggers stop-capture-ask | operational learning loops |
+| 07 Repository Conventions | Workspace families with one-way dependencies; smallest useful export surface; schemas owned by the operation's package; strict TypeScript non-negotiables | monorepo practice, information hiding |
+| 08 Project Tooling | One command per action; tool config owns mechanical enforcement; policy code only for what tools cannot express | DORA capabilities |
+| 09 Code Review | Severity-tagged findings (BLOCK / REQUIRED / SUGGESTION / MINOR) with rule anchors and exact fixes; review the diff, not the world | rubric-based review practice |
+| 10 Decision Framework | Requirement first, evidence next, simplest owning layer last; tool-native order **deliberately inverts** zero-dependency defaults — product engineering buys leverage from mature tooling | Occam, tiger-style (inverted, recorded) |
+| 11 Change Delivery | Small revertable batches, one logical change per green commit, unfinished work isolated not half-shipped; metrics are signals never targets; production-relevant changes ship their failure signal | DORA (small batches, Goodhart), observability practice |
+| 12 Data and State | One system of record per entity; everything else is derived with a rebuild path; no dual-writes; expand–contract migrations with n−1 compatibility | Kleppmann's *DDIA*, *Refactoring Databases*, boring-technology practice |
+| 13 Serverless Runtime | Instances are caches, never truth; waterfalls are the #1 perf bug; every cache entry has an invalidation story; retries are ambient so idempotency is mandatory; everything is bounded | twelve-factor, Well-Architected serverless practice |
+
+Two structural principles hold the set together:
+
+- **Rules are immutable; the project guide is the only editable file.** Every project-specific fact
+  — commands, stores, paths, namespaces, deviations — lives in one guide the rules defer to at
+  ~14 named points. Porting the ruleset to a new repo means filling one template.
+- **Anchors are API.** Sections are numbered (`Rule 4.3`), cited in reviews and guides, and never
+  renumbered — new content appends.
+
+## Using the skill
 
 ```sh
-skills add BarakChamo/engineering-rules
+skills add BarakChamo/principles
 ```
 
-Then, in the target repository, run `/rules-init` (optionally `/rules-init path/to/guide.md`). It
-inspects the repo, writes a pre-filled project guide, and pins the routing mandate into AGENTS.md —
-the always-loaded line that makes rule loading deterministic. Audit or upgrade later with
-`/rules-check`.
+Then, in the target repository:
 
-## How it works
+1. **`/rules-init`** (optionally `/rules-init path/to/guide.md`) — inspects the repo, writes a
+   pre-filled project guide (default `docs/project-guide.md`), and pins the routing mandate plus a
+   `Project guide: <path>` line into AGENTS.md. The mandate is the determinism layer: skill
+   activation is description-matched and probabilistic; the always-loaded AGENTS line is not.
+2. Agents then follow the **loading protocol**: match the task against the index, Read every
+   matched rule file, and open the response with `Rules: <numbers|none>` — with an explicit
+   statement that brevity/minimalism instructions govern prose, never the protocol. Measured
+   **18/18 correct rule loading under adversarial minimalism hooks**, negatives silent
+   (see `evals/`).
+3. **`/rules-check`** audits the guide later: structure, freshness against real files, quality
+   bars, anchor validity, template-version match — it is also the upgrade path when the template
+   version bumps.
 
-- **Rules never change per project.** Every project-specific fact lives in the project guide
-  (default `docs/project-guide.md`, custom path recorded on the `Project guide:` line in AGENTS.md).
-- **Routing**: the skill index maps task triggers to rule files; agents Read only the 2–4 rules a
-  task needs (~1.5–2.5k tokens). Section anchors (`Rule 4.3`) are stable identifiers.
-- **Loading protocol**: match rows → Read every matched rule file → open the response with
-  `Rules: <numbers|none>`. Measured 18/18 correct rule loading under adversarial minimalism hooks,
-  with negatives staying silent (see `evals/`).
+A hard per-prompt guarantee is available as an opt-in hook (documented in
+`skills/engineering-rules/README.md`) at the cost of `Rules: none` announcements on non-code
+prompts.
 
-## Required API surface
+## The primitive packages
 
-Two primitives are fixed by the rules (Rule 7.6); ship them in any package and name the location in
-the guide:
+The rules fix one API surface (Rule 7.6); everything else is configurable. This repo ships it:
 
-- `Result<T, E>` / `ResultAsync<T, E>` with `ok`, `err`, and consumed-result semantics,
-- `invariant(condition, message)` throwing `InvariantError`.
+- [`@principles/result`](packages/result) — `Result<T, E>` / `ResultAsync<T, E>`, `ok`, `err`,
+  `map`/`mapErr`/`andThen`/`match`/`unwrapOr`/`combine`, `trySync`/`tryAsync`. Frozen variants,
+  thenable async composition, dependency-free.
+- [`@principles/invariant`](packages/invariant) — `invariant()` throwing `InvariantError` with
+  stable metadata, plus `createInvariant` for production message stripping.
 
-Reference implementations (MIT, dependency-free): [`reference/result.ts`](reference/result.ts) and
-[`reference/invariant.ts`](reference/invariant.ts) — copy them into a workspace as-is.
-
-## Layout
-
-| Path                                    | Contents                                              |
-| --------------------------------------- | ------------------------------------------------------ |
-| `skills/engineering-rules/SKILL.md`     | Routing index, loading protocol, guide discovery       |
-| `skills/engineering-rules/rules/`       | The 13 rule files                                      |
-| `skills/engineering-rules/templates/`   | Project-guide template (WHAT/WHY/QUALITY BAR per slot) |
-| `skills/engineering-rules/command/`     | `/rules-init`, `/rules-check`                          |
-| `reference/`                            | Result and invariant reference implementations         |
-| `evals/`                                | Routing eval runner + 17 scenarios                     |
-| `examples/project-guide-example.md`     | A real populated guide                                 |
+Copy them into your workspace or depend on them; your project guide records the location.
 
 ## Evals
 
@@ -60,19 +80,22 @@ Reference implementations (MIT, dependency-free): [`reference/result.ts`](refere
 evals/run.sh /path/to/repo-with-skill-installed
 ```
 
-Runs 14 positive scenarios (one per rule row plus a mechanical micro-task) and 3 negatives through
-fresh non-interactive sessions, asserting the index loads, the expected rule file is Read, and
-non-engineering prompts stay silent. Run it before releasing any change to the skill description or
-index. Requires an authenticated `claude` CLI; each run costs real tokens.
+14 positive scenarios (one per index row plus a mechanical micro-task that should honestly declare
+`Rules: none`) and 3 negatives, each a fresh non-interactive session, asserting index load, correct
+rule-file reads, and silence on non-engineering prompts. Run before releasing any change to the
+description or index. Requires an authenticated `claude` CLI; runs cost real tokens.
 
-## Determinism
+## Layout
 
-Skill activation is description-matched and therefore probabilistic; two layers make routing
-near-deterministic: the AGENTS.md mandate `/rules-init` writes, and the index's own loading
-protocol with the `Rules:` declaration — both stating explicitly that brevity/minimalism
-instructions govern prose, never the protocol. Teams wanting a hard per-prompt guarantee can add
-the optional hook documented in `skills/engineering-rules/README.md`, at the cost of `Rules: none`
-announcements on non-code prompts.
+| Path | Contents |
+| --- | --- |
+| `skills/engineering-rules/SKILL.md` | Routing index, loading protocol, guide discovery |
+| `skills/engineering-rules/rules/` | The 13 rule files |
+| `skills/engineering-rules/templates/` | Project-guide template (WHAT / WHY / QUALITY BAR per slot) |
+| `skills/engineering-rules/command/` | `/rules-init`, `/rules-check` |
+| `packages/result`, `packages/invariant` | The required primitives (tested: 53 specs) |
+| `evals/` | Routing eval runner + scenarios |
+| `examples/project-guide-example.md` | A real populated guide |
 
 ## License
 
