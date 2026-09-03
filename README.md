@@ -72,7 +72,16 @@ The rules fix one API surface (Rule 7.6); everything else is configurable. This 
 - [`@principles/invariant`](packages/invariant) — `invariant()` throwing `InvariantError` with
   stable metadata, plus `createInvariant` for production message stripping.
 
-Copy them into your workspace or depend on them; your project guide records the location.
+Install them from a release's tarball assets (no registry account or auth needed):
+
+```jsonc
+// package.json dependencies
+"@principles/result": "https://github.com/BarakChamo/principles/releases/download/v0.1.0/principles-result-0.1.0.tgz",
+"@principles/invariant": "https://github.com/BarakChamo/principles/releases/download/v0.1.0/principles-invariant-0.1.0.tgz"
+```
+
+or copy `packages/*` into your workspace. Your project guide records the location either way. npm
+registry publishing is planned; the tarball URLs remain valid regardless.
 
 ## Evals
 
