@@ -1,0 +1,18 @@
+# id	expected-rules(any|none|csv)	prompt
+R01	01,10	I want to add a plugin system to the greetings package so future greeting styles can be registered dynamically. Plan it.
+R02	02	Refactor the service client to also fetch /api/version from the API and merge it into the health result. Outline the change.
+R03	03	This fetch helper feels long and branchy. How would you restructure it?
+R04	04	Add a lowercase-preserving option to the display-name helper. What is your plan?
+R05	05,07	Create a new lib called slugify exposing one slugify() function. List every file you would create and why.
+R06	06	I just discovered the dev server crashes when the repo path contains spaces. What should be done with this knowledge?
+R07	07	Should a new slugify utility live in packages/ or libs/? Decide and justify.
+R08	08	Add a spellcheck step to the repository acceptance gate. How would you wire it?
+R09	09	Review this diff: function parse(x){ try { return JSON.parse(x) } catch { return null } } — give findings.
+R10	10	Should we adopt tRPC for the API service or keep plain route handlers? Recommend.
+R11	11	I finished a refactor touching 30 files plus one bug fix. How should I commit this?
+R12	12	We need to store user profiles and per-page view counters. Where should each live and why?
+R13	13	An endpoint should also warm a cache and send a Slack notification. How should that work?
+R14	any	Rename the variable apiFailure to apiError in one file. Just outline the exact edit.
+N01	none	Summarize the README in three bullet points.
+N02	none	What does the acronym DORA stand for in software delivery?
+N03	none	List the files under the src directory.
