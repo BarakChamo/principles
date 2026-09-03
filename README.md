@@ -73,6 +73,9 @@ The rules fix one API surface (Rule 7.6); everything else is configurable. This 
   thenable async composition, dependency-free.
 - [`@tenets/invariant`](packages/invariant) — `invariant()` throwing `InvariantError` with
   stable metadata, plus `createInvariant` for production message stripping.
+- [`@tenets/env`](packages/env) — composable typed environment contracts on Zod 4.5 (Rule 2.1's
+  boundary layer): server/client partitions, deployed-environment rules, a Next.js adapter, and
+  compiled parsing (~29× faster steady-state than uncached construction).
 
 Install from npm:
 
@@ -103,9 +106,28 @@ description or index. Requires an authenticated `claude` CLI; runs cost real tok
 | `skills/engineering-rules/rules/` | The 13 rule files |
 | `skills/engineering-rules/templates/` | Project-guide template (WHAT / WHY / QUALITY BAR per slot) |
 | `skills/engineering-rules/command/` | `/rules-init`, `/rules-check` |
-| `packages/result`, `packages/invariant` | The required primitives (tested: 53 specs) |
+| `packages/result`, `packages/invariant`, `packages/env` | The primitives and the env boundary layer (93 specs) |
 | `evals/` | Routing eval runner + scenarios |
 | `examples/project-guide-example.md` | A real populated guide |
+
+## Credits
+
+The rules distill published engineering thought; the packages descend from prior art and exist for
+specific additions:
+
+- **Rules**: TigerBeetle's tiger-style, Bertrand Meyer's Design by Contract, John Ousterhout's
+  *A Philosophy of Software Design*, Scott Wlaschin's railway-oriented programming, Kent Beck's TDD
+  and Cucumber's BDD practice, DORA's capability research, Martin Kleppmann's *DDIA*,
+  Fowler & Sadalage's *Refactoring Databases*, and twelve-factor/serverless practice.
+- **`@tenets/env`**: inspired by [t3-oss/t3-env](https://github.com/t3-oss/t3-env); adds
+  composition/inheritance, deployed-environment rules with vacuous-guard refusal, and Zod 4.5
+  compiled parsing.
+- **`@tenets/result`**: API lineage from [neverthrow](https://github.com/supermacro/neverthrow)
+  (and Rust's `Result`/fp-ts's `Either`); dependency-free frozen plain objects, thenable async
+  composition, `combine`.
+- **`@tenets/invariant`**: descends from Facebook's `invariant` and
+  [tiny-invariant](https://github.com/alexreardon/tiny-invariant); adds a typed `InvariantError`
+  with crash-reporting metadata and configurable production stripping.
 
 ## License
 
