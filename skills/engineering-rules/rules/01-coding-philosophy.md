@@ -1,6 +1,6 @@
 # 01 Coding Philosophy
 
-Functional-first, immutable, contract-driven TypeScript. Optimize for correctness, reviewability,
+Functional-first, immutable, contract-driven code. Optimize for correctness, reviewability,
 and agent legibility before speed.
 
 ## 1.1 Non-Negotiables
@@ -29,7 +29,7 @@ Every public function, package boundary, adapter boundary, and workflow step has
 typed errors, persisted state, side effects, immutability promises), and **invariants** (facts that
 stay true after success). Enforce contracts at both ends where cheap (Rule 02.2, the airlock).
 
-Schemas own untrusted runtime boundaries; derive TypeScript types from the schema so runtime and
+Schemas own untrusted runtime boundaries; derive static types from the schema so runtime and
 compile-time contracts cannot drift.
 
 ## 1.4 Deep and Legible Code

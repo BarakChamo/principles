@@ -39,7 +39,7 @@ Keep control flow flat, bounded, and boring:
 Use one object parameter for multi-input operations; units in names (`timeoutMs`, `sizeBytes`);
 boolean prefixes (`is`, `has`, `should`, `can`, `did`); domain types over primitive parameter
 trains; narrow return types. Exported functions declare return contracts; locals may infer. Prefer
-`map`/`filter`/`flatMap`; use a named loop when `reduce` would obscure state.
+non-mutating collection transforms; use a named loop when a fold would obscure state.
 
 Avoid `fn(a, true, 5000, false)`; boolean flags that change unrelated behavior; pass-through
 functions that hide nothing; public helpers callers must sequence manually; functions that both
@@ -75,5 +75,5 @@ failure flow explicit; it must not hide orchestration behind clever chaining.
 
 Name and isolate side effects: filesystem, network/provider, storage, process/env, clock/randomness.
 Side-effecting functions state idempotency, retries, and expected errors in the contract. Product
-modules receive injected environment, logger, and clock; raw `process.env`, `console`, and process
-termination stay in designated adapters.
+modules receive injected environment, logger, and clock; raw environment access, ambient logging, and process
+termination stay in designated adapters (the profile names them).

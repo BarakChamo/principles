@@ -1,2 +1,5 @@
 node_modules/
 dist/
+evals/raw-*.jsonl
+evals/results.txt
+evals/baseline/

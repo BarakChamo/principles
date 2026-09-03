@@ -1,0 +1,1 @@
+PASS|A02|expect=04|idx=Y|rules=02,04|prof=N|decl=Y|req=Y

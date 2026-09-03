@@ -4,8 +4,8 @@
 `InvariantError`. Never catch an invariant failure to recover (Rule 2.2) — it marks a programmer
 bug, not a recoverable condition.
 
-The rules of the tenets ruleset fix these API names (Rule 7.6); your project guide records where the
-package lives.
+The tenets ruleset's TypeScript profile fixes these API names (Rule 7.6); your project guide records
+where the package lives.
 
 ## Credit
 

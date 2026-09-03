@@ -11,7 +11,8 @@ Normative requirements: [requirements](../requirements.md) (wins on conflict).
 
 - Bun 1.4 — package manager and command entry point only; application code runs on Node.js 24 with
   no Bun APIs ([ADR 0001](../adr/0001-workspace-families.md)).
-- TypeScript 7 (strict profile in `tsconfig.base.json`), Next.js App Router, Turborepo.
+- TypeScript 7 (strict profile in `tsconfig.base.json`), Next.js App Router, Turborepo; language
+  profile `typescript`.
 - Vercel Services deployment ([ADR 0002](../adr/0002-vercel-services.md)); workspaces export
   TypeScript source, apps compile them via `transpilePackages`
   ([ADR 0003](../adr/0003-source-imports.md)).

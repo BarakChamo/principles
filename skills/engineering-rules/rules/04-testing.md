@@ -6,18 +6,9 @@ side-effectful boundaries.
 
 ## 4.1 Required Shape
 
-Explicitly import `describe`/`it` from the project's runner, use Given/When/Then comments, and
-assert the expected throw/rejection message — not merely that something threw:
-
-```ts
-describe('Package.operation', () => {
-	it('should return ConflictError when saving a stale draft', () => {
-		// Given: a draft based on an outdated revision
-		// When: the caller attempts the save
-		// Then: save returns a typed conflict error
-	});
-});
-```
+Declare tests with the runner's explicit declaration form (the profile shows it): name the unit
+under test, name the observable behavior the caller sees, carry the example in Given/When/Then
+comments, and assert the expected throw/rejection message — not merely that something threw.
 
 ## 4.2 Behavioral TDD Loop
 
@@ -51,7 +42,7 @@ resource cleanup, external mutations, policy decisions.
 Test boundaries, invariants, and observable effects. Prefer public APIs — package exports, HTTP
 routes, RPC/tool schemas, CLI output/exit, SDK methods, adapter contracts. Narrower internal seams
 are valid when they own parsing, normalization, idempotency, retry math, or state transitions, but
-must still prove observable behavior or a domain invariant; Rule 07.2's `src`-import ban applies to
+must still prove observable behavior or a domain invariant; Rule 07.2's internal-import ban applies to
 tests too.
 
 Adapters share contract tests over normalized interfaces; interchangeable providers each run the
@@ -74,8 +65,8 @@ of an external protocol when collaborator tests plus one real integration prove 
 
 ## 4.6 Organization and Levels
 
-Tests live with the owning workspace; `describe` names the public unit (`CatalogService.search`),
-`it` names observable behavior. The project guide owns locations, filename patterns, runners, and
+Tests live with the owning workspace; the outer name is the public unit
+(`CatalogService.search`), the inner name is observable behavior. The project guide owns locations, filename patterns, runners, and
 selection.
 
 Use the lowest level that proves the contract:

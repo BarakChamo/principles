@@ -3,8 +3,8 @@
 `Result<T, E>` / `ResultAsync<T, E>` with `ok`, `err`, `isOk`, `isErr`, `map`, `mapErr`, `andThen`,
 `match`, `unwrapOr`, `combine`, `trySync`, `tryAsync` — typed recoverable failures as values.
 
-The rules of the tenets ruleset fix these API names (Rule 7.6); your project guide records where the
-package lives.
+The tenets ruleset's TypeScript profile fixes these API names (Rule 7.6); your project guide records
+where the package lives.
 
 ## Credit
 

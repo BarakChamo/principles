@@ -1,0 +1,9 @@
+# Rule-abidance eval: does the answer carry the concrete mechanism the profile fixes?
+# id	expected-rules(any|none|csv)	prompt	require-regex (matched against the response text)
+A01	02	Write a function createInvoice(input) that returns a typed failure when the customer is unknown, following this repository's rules. Show the code.	\berr\(|Result<
+A02	04	Write the test for a helper that rejects an empty display name, following this repository's rules. Show the code.	describe\(
+A03	09	Review this line against this repository's rules and give findings: const cfg = raw as unknown as Config	BLOCK
+A04	07	Which compiler strictness settings does this repository's ruleset make non-negotiable? Name them exactly.	noUncheckedIndexedAccess
+A05	02	A payments SDK throws on network failure. Show how this repository's rules say to translate that at the adapter boundary. Include the code.	InvariantError
+A06	05	Document an exported function that returns a Result and asserts an invariant, following this repository's rules. Show the documentation.	@throws|@remarks|/\*\*
+A07	07	I need to expose a formatDate function from an existing lib as a new public entry point. Per this repository's rules, what exactly changes?	exports

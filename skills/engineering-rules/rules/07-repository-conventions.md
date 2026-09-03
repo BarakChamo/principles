@@ -16,15 +16,15 @@ them.
 All workspaces share one package namespace, uncoupled from product, deployment, or repository names
 (the project guide names it); product names live in prose and executables, not import paths.
 
-Implementation lives in `src/`. Inter-workspace APIs are explicit `package.json` exports pointing to
-cohesive source modules; broad root barrels are prohibited — a root export fits only a package that
+Implementation lives under the workspace's source root. Inter-workspace APIs are the manifest's
+explicitly declared exports pointing to cohesive source modules (the profile names the mechanism); broad root barrels are prohibited — a root export fits only a package that
 is one small cohesive contract.
 
 ## 7.2 Boundaries
 
-- Import other workspaces only through public exports — never their `src` internals.
-- Cross-package imports use installed workspace names; package-internal references may use `imports`
-  aliases such as `#internal/*`.
+- Import other workspaces only through public exports — never their internals.
+- Cross-package imports use installed workspace names; package-internal references may use the
+  ecosystem's internal-alias mechanism (the profile names it).
 - Apps compose packages and libs; packages depend on other packages' public APIs; libs never depend
   on apps.
 - Provider adapters isolate SDKs and quirks inside the owning package.
@@ -33,7 +33,7 @@ The project guide records the exact permitted directions and their enforcement.
 
 ## 7.3 Public API Discipline
 
-`package.json` exports define the public API — which in a monorepo also means inter-workspace APIs,
+The manifest's declared exports define the public API — which in a monorepo also means inter-workspace APIs,
 exported schemas, CLI/API contracts, adapter capabilities, and persisted artifacts callers rely on.
 Export the smallest useful surface.
 
@@ -68,18 +68,17 @@ versionable on its own.
 
 ## 7.6 Shared Primitives
 
-Never reimplement the shared primitives: `Result`/`ResultAsync`/`ok`/`err`, `invariant` with its
-`InvariantError` failure type, and branded IDs or schema helpers once implemented. These exact names
-are the ruleset's required API surface; the project guide names only where they live. A
+Never reimplement the shared primitives: the result type with its constructors, the invariant
+assertion with its failure type, and branded IDs or schema helpers once implemented. The profile
+fixes their exact names as the required API surface; the project guide names only where they live. A
 domain-specific utility stays local until a second package truly needs it. Changing the primitives
 is an architecture decision.
 
-## 7.7 TypeScript Strictness
+## 7.7 Type-System Strictness
 
-Non-negotiable: `strict`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`. Never bypass
-with `any`, `@ts-ignore`, unsafe non-null assertions, or `as unknown as T`. Narrow `unknown` before
-use. Exported callable interfaces use function properties, not method syntax, so strict parameter
-variance applies.
+Enable the profile's non-negotiable strictness settings, and never bypass the type system with the
+escape hatches it forbids. Narrow untyped or dynamically typed values before use, and follow the
+profile's declaration rules that keep strict checking in force across boundaries.
 
 ## 7.8 Root Changes
 

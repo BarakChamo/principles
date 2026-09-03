@@ -18,13 +18,17 @@ suggest `/rules-init`.
 1. **Structure:** every template heading present (compare against `templates/project-guide.md` in
    the `engineering-rules` skill); `Template-Version` stamp matches the skill's
    `metadata.template-version` — mismatch means re-run `/rules-init` against the new template.
-2. **Freshness:** every command in the guide exists in root `package.json`; every workspace in the
-   map exists; primitive and store locations resolve; the stated test runner and suffixes match real
+2. **Freshness:** every command in the guide exists in the root manifest; every workspace in the map
+   exists; primitive and store locations resolve; the stated test runner and suffixes match real
    test files.
-3. **Quality bars:** each section satisfies its QUALITY BAR from the template; the guide stays under
+3. **Profile:** `tenets.json`'s `profile` (default `typescript`) resolves to a
+   `profiles/<name>.md` file in the skill, matches the repository's actual language, and every
+   anchor it waives or appends to exists in the rule files. Flag guide content the profile already
+   fixes (strictness settings, doc tags, test declaration form) as duplication.
+4. **Quality bars:** each section satisfies its QUALITY BAR from the template; the guide stays under
    ~600 words; no section restates what code, README, or rules already say.
-4. **Anchors:** every `Rule N.M` the guide cites exists in the skill's rule files.
-5. **Deviations:** the section is present and explicit (`none recorded` counts); flag any known
+5. **Anchors:** every `Rule N.M` the guide cites exists in the skill's rule files.
+6. **Deviations:** the section is present and explicit (`none recorded` counts); flag any known
    divergence between repo practice and the rules that is not recorded there.
 
 Report findings as a checklist with pass/fail per check and a fix list, most severe first. Apply

@@ -13,8 +13,8 @@ of bundle size and init work.
 ## 13.2 No Waterfalls
 
 Sequential awaits of independent work are the primary performance bug — idle time costs latency and
-compute both. Start independent work early, await late, `Promise.all` independents, and stream what
-can render before the slowest dependency resolves.
+compute both. Start independent work early, await late, run independents concurrently, and stream
+what can render before the slowest dependency resolves.
 
 ## 13.3 Cache Discipline
 

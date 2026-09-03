@@ -6,10 +6,10 @@ Review behavior, contracts, safety, tests, and docs. Findings first; summaries s
 
 **BLOCK** — cannot merge:
 
-- `any`, `@ts-ignore`, unsafe non-null assertion; missing boundary validation,
+- a type-system escape hatch the profile forbids; missing boundary validation,
 - untyped expected throws, throwing across a recoverable contract, swallowed errors, or an invariant
   failure recovered from,
-- package `src` import across a workspace boundary; app wrapper containing business orchestration,
+- an internal import across a workspace boundary; app wrapper containing business orchestration,
 - credential/secret leakage, isolation or privilege escape, data-loss, or unauthorized external
   mutation risk,
 - unauthorized dependency/root-config/package change; failing required check.
@@ -17,7 +17,7 @@ Review behavior, contracts, safety, tests, and docs. Findings first; summaries s
 **REQUIRED CHANGES** — fix before merge:
 
 - missing behavioral tests for changed behavior or a documented `Result` error type,
-- missing or junk JSDoc on exports; missing file preamble,
+- missing or junk documentation on exports; missing file preamble,
 - package README, topic page, work artifact, or project guide made stale by the change,
 - shallow public API/export leaking implementation sequencing.
 

@@ -8,7 +8,7 @@ page, the glossary, or a decision record.
 
 Capture what a future agent could not infer from code, tests, or durable docs: surprising command or
 CI behavior, a hidden utility, a package gotcha, a debugging root cause, a provider quirk, a rabbit
-hole to avoid, reviewer feedback revealing a missing convention. Skip general TypeScript knowledge,
+hole to avoid, reviewer feedback revealing a missing convention. Skip general language and framework knowledge,
 obvious behavior, and notes with no future value.
 
 ## 6.2 Rabbit Hole Protocol

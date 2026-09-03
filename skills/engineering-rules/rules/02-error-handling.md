@@ -9,7 +9,8 @@ Use schemas wherever data enters a trust boundary: HTTP/RPC/tool/CLI/SDK/worker/
 provider responses, file contents, environment variables, URL and query params, and public package
 functions called from another workspace.
 
-Parse, do not cast: `safeParse`-style APIs, then use the parsed value. The package that owns a
+Parse, do not cast: use the schema's non-throwing parse API (the profile names it), then use the
+parsed value. The package that owns a
 public operation owns and exports its schema.
 
 ## 2.2 Tier 2: Invariants and the Airlock
@@ -68,18 +69,10 @@ meaningfully handle it. Decide once at the adapter boundary and record it in the
 - A declared exception-throwing boundary? Throw there; translate at the recovery boundary.
 - None of the above? Re-check the contract before coding.
 
-When a provider/tool throws, catch at the adapter boundary, filter, and translate once:
-
-```ts
-try {
-	return ok(await codeHost.pullRequest(id));
-} catch (error) {
-	if (error instanceof InvariantError) {
-		throw error; // programmer bug — never laundered into a recoverable error
-	}
-	return err({ type: 'code_host_unavailable', provider: 'github', cause: error });
-}
-```
+When a provider/tool throws, catch at the adapter boundary, filter, and translate once (the profile
+shows the shape): rethrow an invariant failure unchanged — it is a programmer bug, never laundered
+into a recoverable error — and return a typed error carrying the failure kind, the provider
+identity, and the original cause.
 
 ## 2.6 Tests Required
 

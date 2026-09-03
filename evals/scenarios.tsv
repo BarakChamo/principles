@@ -12,7 +12,7 @@ R10	10	Should we adopt tRPC for the API service or keep plain route handlers? Re
 R11	11	I finished a refactor touching 30 files plus one bug fix. How should I commit this?
 R12	12	We need to store user profiles and per-page view counters. Where should each live and why?
 R13	13	An endpoint should also warm a cache and send a Slack notification. How should that work?
-R14	any	Rename the variable apiFailure to apiError in one file. Just outline the exact edit.
+R14	any	Rename the exported greet function to createGreeting across the repository. Outline the exact change.
 N01	none	Summarize the README in three bullet points.
 N02	none	What does the acronym DORA stand for in software delivery?
 N03	none	List the files under the src directory.

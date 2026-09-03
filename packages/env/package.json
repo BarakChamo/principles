@@ -1,6 +1,6 @@
 {
 	"name": "@tenets/env",
-	"version": "0.2.2",
+	"version": "0.3.0",
 	"description": "Composable typed environment contracts on Zod 4.5 with compiled parsing, server/client partitions, deployed-environment rules, and an optional Next.js adapter \u2014 the boundary-validation layer the tenets ruleset prescribes (Rule 2.1).",
 	"license": "MIT",
 	"repository": {

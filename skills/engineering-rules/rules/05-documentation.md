@@ -11,23 +11,23 @@ mechanical validation enforces presence, review owns accuracy.
 
 ## 5.2 Public APIs
 
-Public package APIs, exported schemas, commands, and non-obvious exports need meaningful JSDoc;
-self-explanatory internal exports need none. Document what applies: formats, ranges, units,
+Public package APIs, exported schemas, commands, and non-obvious exports need meaningful API
+documentation (the profile names the doc system); self-explanatory internal exports need none. Document what applies: formats, ranges, units,
 defaults; auth/provider/environment assumptions; idempotency and retry behavior; expected `Result`
 errors; invariant throws; side effects; external state and cleanup semantics.
 
-Types replace redundant JSDoc param/return annotations. `@throws {ErrorType}` only for
-invariant/programmer-error throws; `@example` when usage is non-obvious. Document known abstraction
-leaks (pagination slowdowns, rate limits the adapter absorbs) in `@remarks`.
+Types replace redundant parameter/return restatements. Document a throw only when it marks
+programmer error, add an example when usage is non-obvious, and record known abstraction leaks
+(pagination slowdowns, rate limits the adapter absorbs) as remarks.
 
-Bad: `@param id - The id` Good:
-`@param pageId - Stable page ID from the source CMS; path aliases must be resolved before calling.`
+Bad: `id - The id` Good:
+`pageId - Stable page ID from the source CMS; path aliases must be resolved before calling.`
 
 ## 5.3 Internal Comments
 
 Comment only the non-obvious: domain rules, algorithm steps, workarounds, magic numbers and regexes,
 security constraints, protocol quirks, concurrency/idempotency assumptions. Never narrate
-assignments or framework boilerplate. Non-exported functions need JSDoc only when they contain
+assignments or framework boilerplate. Non-exported functions need documentation only when they contain
 `invariant()`, return `Result`, are called from multiple files, or are not self-explanatory.
 
 When changing nuanced code, review nearby comments as part of the edit — a stale comment is a
