@@ -1,12 +1,31 @@
 {
 	"name": "@principles/result",
 	"version": "0.1.0",
-	"description": "Typed Result and ResultAsync primitives for recoverable failures — the API surface the principles ruleset requires (Rule 7.6).",
+	"description": "Typed Result and ResultAsync primitives for recoverable failures \u2014 the API surface the principles ruleset requires (Rule 7.6).",
 	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/BarakChamo/principles.git",
+		"directory": "packages/result"
+	},
 	"type": "module",
 	"sideEffects": false,
 	"exports": {
-		".": "./src/index.ts"
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
 	},
-	"files": ["src"]
+	"files": [
+		"dist",
+		"src"
+	],
+	"scripts": {
+		"build": "tsc -p tsconfig.build.json",
+		"prepublishOnly": "npm run build"
+	},
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	}
 }
