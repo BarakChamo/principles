@@ -1,6 +1,5 @@
 {
-	"name": "tenets",
-	"private": true,
+	"name": "@tenets/skills",
 	"license": "MIT",
 	"type": "module",
 	"workspaces": [
@@ -14,5 +13,18 @@
 	"devDependencies": {
 		"typescript": "^5.6.0",
 		"vitest": "^4.0.0"
+	},
+	"version": "0.1.2",
+	"description": "The tenets engineering ruleset as an agent skill: 13 rules, routing index, project-guide template, and setup commands.",
+	"files": [
+		"skills",
+		"README.md"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/BarakChamo/tenets.git"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

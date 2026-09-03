@@ -40,6 +40,8 @@ Two structural principles hold the set together:
 ## Using the skill
 
 ```sh
+npm i -D @tenets/skills && npx skills experimental_sync
+# or, GitHub-direct:
 skills add BarakChamo/tenets
 ```
 

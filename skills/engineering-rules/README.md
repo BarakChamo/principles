@@ -12,7 +12,8 @@ deviates (coverage as signal, tool-native over zero-dependency).
 ## Install
 
 ```sh
-skills add BarakChamo/tenets
+npm i -D @tenets/skills && npx skills experimental_sync
+# or: skills add BarakChamo/tenets
 ```
 
 Then in the target repository run `/rules-init` (optionally `/rules-init path/to/guide.md`). It
