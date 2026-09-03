@@ -1,7 +1,7 @@
 {
 	"name": "@tenets/invariant",
 	"version": "0.1.1",
-	"description": "Assertion primitive for impossible internal states, throwing InvariantError \u2014 the API surface the principles ruleset requires (Rule 7.6).",
+	"description": "Assertion primitive for impossible internal states, throwing InvariantError \u2014 the API surface the tenets ruleset requires (Rule 7.6).",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
