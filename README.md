@@ -72,16 +72,15 @@ The rules fix one API surface (Rule 7.6); everything else is configurable. This 
 - [`@tenets/invariant`](packages/invariant) — `invariant()` throwing `InvariantError` with
   stable metadata, plus `createInvariant` for production message stripping.
 
-Install them from a release's tarball assets (no registry account or auth needed):
+Install from npm:
 
-```jsonc
-// package.json dependencies
-"@tenets/result": "https://github.com/BarakChamo/tenets/releases/download/v0.1.1/tenets-result-0.1.1.tgz",
-"@tenets/invariant": "https://github.com/BarakChamo/tenets/releases/download/v0.1.1/tenets-invariant-0.1.1.tgz"
+```sh
+npm install @tenets/result @tenets/invariant
 ```
 
-or copy `packages/*` into your workspace. Your project guide records the location either way. npm
-registry publishing is planned; the tarball URLs remain valid regardless.
+Each release also attaches the packed tarballs as assets for registry-free installs, and
+`packages/*` can be copied into a workspace directly. Your project guide records the location
+either way.
 
 ## Evals
 

@@ -1,15 +1,18 @@
-name: Publish to npm (trusted publishing)
+name: Publish to npm
 
-# Manual until trusted publishers are configured for @tenets/result and
-# @tenets/invariant on npmjs.com (package Settings -> Trusted Publisher ->
-# GitHub Actions: BarakChamo/tenets, workflow npm-publish.yml). Then switch
-# the trigger to `release: types: [published]`.
+# Uses the NPM_TOKEN secret. Migration path: configure trusted publishers for
+# @tenets/result and @tenets/invariant on npmjs.com (Settings -> Trusted
+# Publisher -> GitHub Actions: BarakChamo/tenets, workflow npm-publish.yml),
+# then delete the secret and the NODE_AUTH_TOKEN env line — OIDC takes over
+# and provenance is generated automatically.
 on:
+  release:
+    types: [published]
   workflow_dispatch:
 
 permissions:
   contents: read
-  id-token: write # npm OIDC trusted publishing + provenance
+  id-token: write # provenance / future trusted publishing
 
 jobs:
   publish:
@@ -24,3 +27,5 @@ jobs:
       - run: npm test
       - run: npm run build --workspaces
       - run: npm publish --workspaces --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
