@@ -1,4 +1,4 @@
-# @principles/invariant
+# @tenets/invariant
 
 `invariant(condition, message)` asserting impossible internal states, throwing `InvariantError`
 with stable code/details metadata, plus `createInvariant` for production message stripping. Never

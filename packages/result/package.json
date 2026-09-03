@@ -1,11 +1,11 @@
 {
-	"name": "@principles/result",
-	"version": "0.1.0",
+	"name": "@tenets/result",
+	"version": "0.1.1",
 	"description": "Typed Result and ResultAsync primitives for recoverable failures \u2014 the API surface the principles ruleset requires (Rule 7.6).",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/BarakChamo/principles.git",
+		"url": "git+https://github.com/BarakChamo/tenets.git",
 		"directory": "packages/result"
 	},
 	"type": "module",

@@ -1,11 +1,11 @@
 {
-	"name": "@principles/invariant",
-	"version": "0.1.0",
+	"name": "@tenets/invariant",
+	"version": "0.1.1",
 	"description": "Assertion primitive for impossible internal states, throwing InvariantError \u2014 the API surface the principles ruleset requires (Rule 7.6).",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/BarakChamo/principles.git",
+		"url": "git+https://github.com/BarakChamo/tenets.git",
 		"directory": "packages/invariant"
 	},
 	"type": "module",

@@ -12,7 +12,7 @@ deviates (coverage as signal, tool-native over zero-dependency).
 ## Install
 
 ```sh
-skills add BarakChamo/principles
+skills add BarakChamo/tenets
 ```
 
 Then in the target repository run `/rules-init` (optionally `/rules-init path/to/guide.md`). It
@@ -29,7 +29,7 @@ by the rules themselves (Rule 7.6):
 - `invariant(condition, message)` throwing `InvariantError`.
 
 Ship those exact APIs in any package you like and name their location in the guide. This repository
-provides them as `@principles/result` and `@principles/invariant` under `packages/` — copy them in
+provides them as `@tenets/result` and `@tenets/invariant` under `packages/` — copy them in
 or depend on them directly.
 
 ## Layout

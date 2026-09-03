@@ -1,4 +1,4 @@
-# principles
+# tenets
 
 An engineering ruleset for TypeScript monorepos, distilled from the canon and packaged as an agent
 skill: **13 generic rules behind a trigger-routing index, one editable per-project translation file,
@@ -40,7 +40,7 @@ Two structural principles hold the set together:
 ## Using the skill
 
 ```sh
-skills add BarakChamo/principles
+skills add BarakChamo/tenets
 ```
 
 Then, in the target repository:
@@ -66,18 +66,18 @@ prompts.
 
 The rules fix one API surface (Rule 7.6); everything else is configurable. This repo ships it:
 
-- [`@principles/result`](packages/result) — `Result<T, E>` / `ResultAsync<T, E>`, `ok`, `err`,
+- [`@tenets/result`](packages/result) — `Result<T, E>` / `ResultAsync<T, E>`, `ok`, `err`,
   `map`/`mapErr`/`andThen`/`match`/`unwrapOr`/`combine`, `trySync`/`tryAsync`. Frozen variants,
   thenable async composition, dependency-free.
-- [`@principles/invariant`](packages/invariant) — `invariant()` throwing `InvariantError` with
+- [`@tenets/invariant`](packages/invariant) — `invariant()` throwing `InvariantError` with
   stable metadata, plus `createInvariant` for production message stripping.
 
 Install them from a release's tarball assets (no registry account or auth needed):
 
 ```jsonc
 // package.json dependencies
-"@principles/result": "https://github.com/BarakChamo/principles/releases/download/v0.1.0/principles-result-0.1.0.tgz",
-"@principles/invariant": "https://github.com/BarakChamo/principles/releases/download/v0.1.0/principles-invariant-0.1.0.tgz"
+"@tenets/result": "https://github.com/BarakChamo/tenets/releases/download/v0.1.1/tenets-result-0.1.1.tgz",
+"@tenets/invariant": "https://github.com/BarakChamo/tenets/releases/download/v0.1.1/tenets-invariant-0.1.1.tgz"
 ```
 
 or copy `packages/*` into your workspace. Your project guide records the location either way. npm
