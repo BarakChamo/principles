@@ -1,5 +1,5 @@
 ---
-name: engineering-rules
+name: tenets
 description: |
   Generic engineering ruleset for monorepos, bound to each ecosystem by a language profile
   (TypeScript ships): typed Result error handling with invariants and the airlock, boundary
@@ -14,7 +14,7 @@ description: |
   modeling, caching, or migrating data; writing request handlers, queues, and jobs; capturing
   learnings or non-obvious discoveries; or deciding where code, data, or knowledge should live.
 metadata:
-  version: '1.1.0'
+  version: '2.0.0'
   template-version: '1'
 ---
 
@@ -29,10 +29,16 @@ Generic rules, never edited per project. Two files bind them to reality:
 - the **project guide** — the single editable per-project file (commands, stores, paths,
   namespaces, recorded deviations). Discover it in this order: the `guide` field of `tenets.json`; a
   `Project guide:` line in AGENTS.md or CLAUDE.md; the default `docs/project-guide.md`. No guide yet
-  → run `/rules-init` before relying on project-specific slots.
+  → run `/tenets-init` before relying on project-specific slots.
 
 Rules name the result type, the invariant assertion, and the doc, test, and packaging systems
 generically; the profile fixes the concrete names, the guide names where they live.
+
+The `tenets-*` workflow skills — `/tenets-audit`, `/tenets-review`, `/tenets-plan`,
+`/tenets-realign`, plus `/tenets-init` and `/tenets-check` — apply these rules as deliberate acts on
+explicit request. They share `workflow/findings.md` (the finding and severity contract) and
+`workflow/scope.md` (guide slots, git scope modes, thresholds, dimensions), and they cite anchors
+rather than restating rules.
 
 ## Loading protocol
 
@@ -61,6 +67,7 @@ new sections append, existing ones never renumber.
 | [11 Change Delivery](rules/11-change-delivery.md)               | committing: slicing work, writing messages, isolating unfinished behavior, adding metrics or logging           |
 | [12 Data and State](rules/12-data-and-state.md)                 | new entities, store choice, cross-store caching or sync, migrations and backfills                              |
 | [13 Serverless Runtime](rules/13-serverless-runtime.md)         | request handlers, fetch sequences, cache layers, queue/webhook consumers, long-running jobs                    |
+| [14 Planning](rules/14-planning.md)                             | before non-trivial work: naming the boundary, contract, examples, and slices; a request that names a mechanism |
 
 Rules 01–02 apply to nearly all code work; the rest load on trigger.
 

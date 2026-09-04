@@ -1,0 +1,19 @@
+# Command-routing eval: explicit requests must reach the named workflow skill, and near-misses
+# must not fire one at all. Expectation forms: skill:<name> | no-workflow
+# id	expectation	prompt	require-regex
+I01	skill:tenets-audit	Audit this repository against the tenets ruleset and tell me how aligned it is.
+I02	skill:tenets-audit	Check the compliance of libs/text with the engineering rules.
+I03	skill:tenets-review	Review my uncommitted changes against the tenets rules.
+I04	skill:tenets-review	Did I build what the plan said? Review the diff against the rules.
+I05	skill:tenets-plan	Plan adding a slug helper to libs/text with the tenets.
+I06	skill:tenets-realign	Realign apps/ops with the tenets ruleset.
+I07	skill:tenets-check	Check whether this repository's tenets project guide is still accurate.
+I08	skill:tenets-init	Set this repository up for the tenets ruleset from scratch.
+X01	no-workflow	Add a lowercase-preserving option to the display-name helper. What is your plan?
+X02	no-workflow	Clean up this fetch helper — it feels long and branchy.
+X03	no-workflow	How should I commit a refactor touching 30 files plus one bug fix?
+X04	no-workflow	Review this diff: function parse(x){ try { return JSON.parse(x) } catch { return null } }
+X05	no-workflow	Should a new slugify utility live in packages/ or libs/? Decide and justify.
+X06	no-workflow	Refactor these three functions in libs/text to be shorter.
+X07	no-workflow	What does the acronym DORA stand for in software delivery?
+X08	no-workflow	Where should user profiles and per-page view counters live?

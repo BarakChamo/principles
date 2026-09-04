@@ -13,6 +13,8 @@ R11	11	I finished a refactor touching 30 files plus one bug fix. How should I co
 R12	12	We need to store user profiles and per-page view counters. Where should each live and why?
 R13	13	An endpoint should also warm a cache and send a Slack notification. How should that work?
 R14	any	Rename the exported greet function to createGreeting across the repository. Outline the exact change.
+R15	14	I want to add rate limiting to the greeting API. Work out the boundary, the contract, and how you would slice it before writing anything.
+R16	14	Before I start: what should I nail down about the ops health endpoint returning cached data?
 N01	none	Summarize the README in three bullet points.
 N02	none	What does the acronym DORA stand for in software delivery?
 N03	none	List the files under the src directory.

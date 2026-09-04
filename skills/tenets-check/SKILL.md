@@ -1,23 +1,33 @@
 ---
-description:
-  Audit the engineering-rules project guide for completeness, staleness, and rule-anchor validity.
-  Use when the user runs /rules-check, after refactors that change commands or workspaces, or when
-  upgrading the engineering-rules skill.
+name: tenets-check
+description: |
+  Audits a repository's tenets project guide for completeness, staleness, quality bars, valid rule
+  anchors, and template version, and reports a pass/fail checklist with a fix list.
+
+  Use only when the user explicitly asks to check or audit the project guide, or runs /tenets-check
+  — including after refactors that change commands or workspaces, or when upgrading the ruleset. Not
+  for auditing code against the rules: that is tenets-audit.
+disable-model-invocation: true
+metadata:
+  version: '1.0.0'
+  requires: 'tenets >= 2.0.0'
 ---
 
-# /rules-check
+# Tenets check
 
-Audit this repository's engineering-rules project guide.
+Audit this repository's tenets project guide. Read `../tenets/templates/project-guide.md`
+for comparison; if that path does not resolve, stop: `State: BLOCKED — install the tenets ruleset
+skill`.
 
 Locate it via `tenets.json`'s `guide` field at the repository root, else the `Project guide:` line
 in AGENTS.md/CLAUDE.md, else the default `docs/project-guide.md`; missing guide → report that and
-suggest `/rules-init`.
+suggest `/tenets-init`.
 
 ## Checks
 
 1. **Structure:** every template heading present (compare against `templates/project-guide.md` in
-   the `engineering-rules` skill); `Template-Version` stamp matches the skill's
-   `metadata.template-version` — mismatch means re-run `/rules-init` against the new template.
+   the `tenets` skill); `Template-Version` stamp matches the skill's
+   `metadata.template-version` — mismatch means re-run `/tenets-init` against the new template.
 2. **Freshness:** every command in the guide exists in the root manifest; every workspace in the map
    exists; primitive and store locations resolve; the stated test runner and suffixes match real
    test files.
@@ -27,7 +37,9 @@ suggest `/rules-init`.
    fixes (strictness settings, doc tags, test declaration form) as duplication.
 4. **Quality bars:** each section satisfies its QUALITY BAR from the template; the guide stays under
    ~600 words; no section restates what code, README, or rules already say.
-5. **Anchors:** every `Rule N.M` the guide cites exists in the skill's rule files.
+5. **Anchors:** every `Rule N.M` cited by the guide exists in the ruleset's rule files, and so does
+   every anchor cited by an installed `tenets-*` workflow skill — a stale anchor in a workflow skill
+   produces confident findings against a rule that no longer says that.
 6. **Deviations:** the section is present and explicit (`none recorded` counts); flag any known
    divergence between repo practice and the rules that is not recorded there.
 

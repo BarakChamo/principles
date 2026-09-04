@@ -4,7 +4,7 @@
 
 Template-Version: 1
 
-Translates the generic engineering rules (`skills/engineering-rules/`) into this repository.
+Translates the generic engineering rules (`skills/tenets/`) into this repository.
 Normative requirements: [requirements](../requirements.md) (wins on conflict).
 
 ## Stack

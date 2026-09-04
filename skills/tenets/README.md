@@ -1,7 +1,7 @@
-# engineering-rules
+# tenets
 
-A generic, distilled engineering ruleset for monorepos, packaged as an agent skill: 13
-language-neutral rules (~5,900 words) behind a trigger-routing index, a language profile that binds
+A generic, distilled engineering ruleset for monorepos, packaged as an agent skill: 14
+language-neutral rules (~6,300 words) behind a trigger-routing index, a language profile that binds
 them to one ecosystem, one editable per-project translation file (the project guide), and two
 commands to create and audit it.
 
@@ -17,11 +17,11 @@ npm i -D @tenets/skills && npx skills experimental_sync
 # or: skills add BarakChamo/tenets
 ```
 
-Then in the target repository run `/rules-init` (optionally `/rules-init path/to/guide.md`). It
+Then in the target repository run `/tenets-init` (optionally `/tenets-init path/to/guide.md`). It
 writes the project guide, pre-filled from the repo, records the guide path in `tenets.json` at the repo root
 (self-contained, survives skill reinstalls), and pins the routing imperative into AGENTS.md for
 deterministic index loading. Audit or
-upgrade later with `/rules-check`.
+upgrade later with `/tenets-check`.
 
 ## Three layers
 
@@ -64,11 +64,18 @@ guide's job. Set `tenets.json`'s `profile` field to the file's name; `typescript
 ## Layout
 
 - `SKILL.md` — the routing index; loads on trigger, points to one rule file per situation.
-- `rules/` — 13 rule files, stable section anchors (`Rule 4.3`); anchors never renumber.
+- `rules/` — 14 rule files, stable section anchors (`Rule 4.3`); anchors never renumber.
 - `profiles/` — one file per language/ecosystem; `typescript.md` ships, and the profile loads with
   the rules.
 - `templates/project-guide.md` — the editable translation template (WHAT/WHY/QUALITY BAR per slot).
-- `command/` — `/rules-init`, `/rules-check`.
+- `workflow/` — shared contracts for the `tenets-*` workflow skills: `findings.md` (finding grammar,
+  severity source, confidence, dedup, summary line, worker schema), `scope.md` (guide slots, git
+  scope modes, effort thresholds, dimensions, degradation), and `checklists/` (one question list per
+  dimension, embeddable in a worker prompt).
+
+The workflow skills themselves are sibling directories, so each is its own installable skill and its
+own slash command: `tenets-init`, `tenets-check`, `tenets-audit`, `tenets-review`, `tenets-plan`,
+`tenets-realign`.
 
 ## Determinism
 
@@ -76,7 +83,7 @@ Skill activation is description-matched and therefore probabilistic; two layers 
 near-deterministic, measured at 17/17 routing and 7/7 rule abidance under adversarial minimalism
 hooks (`evals/scenarios.tsv`, `evals/abidance.tsv`):
 
-1. The AGENTS.md mandate `/rules-init` writes (read index, Read matched rules and the profile, open
+1. The AGENTS.md mandate `/tenets-init` writes (read index, Read matched rules and the profile, open
    the response with `Rules: <numbers|none>`; overrides brevity/minimalism instructions).
 2. The index's own loading protocol with the same declaration.
 
@@ -91,7 +98,7 @@ cost of `Rules: none` announcements on non-code prompts:
 				"hooks": [
 					{
 						"type": "command",
-						"command": "echo 'engineering-rules: for code work, read the skill index, Read matched rules, open with Rules: <numbers|none>.'"
+						"command": "echo 'tenets: for code work, read the skill index, Read matched rules, open with Rules: <numbers|none>.'"
 					}
 				]
 			}

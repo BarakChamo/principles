@@ -1,6 +1,6 @@
 # Project guide (template)
 
-The single file translating the generic engineering rules (the `engineering-rules` skill) into this
+The single file translating the generic engineering rules (the `tenets` skill) into this
 project. Rules are never edited per project, and ecosystem mechanisms belong to the language profile
 the skill loads; every project-specific fact, path, command, and deviation lives here.
 
