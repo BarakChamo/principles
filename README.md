@@ -1,16 +1,69 @@
 # tenets
 
-An engineering ruleset for monorepos, distilled from the canon and packaged as agent skills:
-**14 language-neutral rules behind a trigger-routing index, a language profile that binds them to
-one ecosystem, one editable per-project translation file, six workflow commands that apply the rules
-to real code, the primitive packages the TypeScript profile requires, and an eval suite** that
-measures whether agents actually load and follow the rules.
+An engineering standard for coding agents, distilled from the canon and packaged as installable
+skills: **14 language-neutral rules behind a trigger-routing index, a language profile that binds
+them to one ecosystem, one editable per-project file, six commands that apply the rules to real
+code, the primitives the TypeScript profile requires, and an eval suite** that measures whether
+agents actually load and follow the rules.
 
-Built for coding agents first: rules are dense, anchored, and loaded per task (2–4 files,
-~1.5–2.5k tokens) rather than crammed into an always-on context file. Humans get the same benefit —
-a small, opinionated, internally consistent standard with its deviations written down.
+An agent will be exactly as good an engineer as the standard you managed to articulate — not as good
+as your best day, and not as good as your intentions, but as good as the sentences you actually
+wrote. Left to infer standards from a codebase, it faithfully reproduces whatever is already there,
+including the parts you are ashamed of. So the standard is written down, loaded per task, cited by
+anchor, and measured. → [Motivation](docs/motivation.md)
 
-## The principles behind the rules
+Rules are dense and loaded on demand — two to four files, roughly 1.5–2.5k tokens for a given task —
+rather than crammed into an always-on context file. Humans get the same benefit: a small,
+opinionated, internally consistent standard with its deviations written down.
+
+## Documentation
+
+| Page | What it covers |
+| --- | --- |
+| [Motivation](docs/motivation.md) | Why the standard has to be explicit, and why reviewing output does not scale |
+| [Design](docs/design.md) | The four composable layers, anchors as API, progressive disclosure, measured determinism |
+| [Authoring](docs/authoring.md) | Adding a rule, writing a profile, populating a guide, writing a portable workflow skill |
+
+## Install
+
+```sh
+npm i -D @tenets/skills && npx skills experimental_sync -y
+# or, GitHub-direct:
+skills add BarakChamo/tenets --all
+```
+
+`--all` matters: this repository ships seven skills, so without it the installer prompts for a
+selection.
+
+Then run **`/tenets-init`** in the target repository. It inspects the repo, writes a pre-filled
+project guide, records its path in `tenets.json` at the root (repo-owned, so it survives skill
+reinstalls), pins the routing mandate into AGENTS.md, and offers the per-harness command shims. The
+mandate is the determinism layer: skill activation is description-matched and probabilistic, while
+an always-loaded instruction is not.
+
+## The skills
+
+| Skill | What it does |
+| --- | --- |
+| `tenets` | the ruleset itself — rules, profile, guide discovery; loads on trigger during ordinary work |
+| `/tenets-audit [scope]` | severity-ranked compliance report for a repo, package, or subtree |
+| `/tenets-review [target]` | reviews a PR, branch, or dirty tree, plus an intent audit against the active plan |
+| `/tenets-plan [request]` | requirement, contract, examples-as-tests, green revertable slices |
+| `/tenets-realign [scope]` | ordered slice plan, applied on approval, one green commit per slice |
+| `/tenets-init` | sets a repo up: guide, `tenets.json`, routing mandate, per-harness shims |
+| `/tenets-check` | audits the guide: structure, freshness, quality bars, anchors, template version |
+
+The six workflow skills are user-invoked only — their descriptions stay out of context, so they
+never compete with the ruleset for activation during ordinary work. That is also why the routing
+mandate names them: naming is what makes them discoverable.
+
+During ordinary work agents follow the **loading protocol**: match the task against the index, read
+every matched rule file plus the language profile, and open the response with `Rules: <numbers|none>`
+— with an explicit statement that brevity and minimalism instructions govern prose, never the
+protocol. Teams wanting a hard per-prompt guarantee can add an opt-in hook, documented in
+[the ruleset's README](skills/tenets/README.md).
+
+## The rules
 
 Each rule distills a respected source, keeping its teeth and recording every deliberate deviation:
 
@@ -29,69 +82,22 @@ Each rule distills a respected source, keeping its teeth and recording every del
 | 11 Change Delivery | Small revertable batches, one logical change per green commit, unfinished work isolated not half-shipped; metrics are signals never targets; production-relevant changes ship their failure signal | DORA (small batches, Goodhart), observability practice |
 | 12 Data and State | One system of record per entity; everything else is derived with a rebuild path; no dual-writes; expand–contract migrations with n−1 compatibility | Kleppmann's *DDIA*, *Refactoring Databases*, boring-technology practice |
 | 13 Serverless Runtime | Instances are caches, never truth; waterfalls are the #1 perf bug; every cache entry has an invalidation story; retries are ambient so idempotency is mandatory; everything is bounded | twelve-factor, Well-Architected serverless practice |
-| 14 Planning | The plan is the contract stated before the code: boundary, API, error cases, invariants, tests, docs; examples become the test list; requirement before mechanism | Rule 1.4's planning discipline, BDD example-first practice |
+| 14 Planning | The plan is the contract stated before the code: boundary, API, error cases, invariants, tests, docs; examples become the test list; requirement before mechanism | Design by Contract, BDD example-first practice |
 
-Two structural principles hold the set together:
+Three structural properties hold the set together — the reasoning is in [design](docs/design.md):
 
-- **Rules are immutable; the project guide is the only editable file.** Every project-specific fact
-  — commands, stores, paths, namespaces, deviations — lives in one guide the rules defer to at
-  ~14 named points. Porting the ruleset to a new repo means filling one template.
-- **Three layers: rule, profile, guide.** A rule states the principle in language-neutral terms; a
-  language profile (`skills/tenets/profiles/<name>.md`, `typescript` by default) binds
-  it to one ecosystem's mechanisms — primitive names, strictness settings, test and doc form,
-  packaging — and may append ecosystem rules or waive an anchor with a reason; the guide states one
-  repository's facts. A new ecosystem is one ~500-word profile, not a rule fork.
-- **Anchors are API.** Sections are numbered (`Rule 4.3`), cited in reviews and guides, and never
-  renumbered — new content appends.
-
-## Using the skill
-
-```sh
-npm i -D @tenets/skills && npx skills experimental_sync -y
-# or, GitHub-direct:
-skills add BarakChamo/tenets --all
-```
-
-`--all` matters: this repository ships seven skills, so without it the installer prompts for a
-selection.
-
-| Skill | What it does |
-| --- | --- |
-| `tenets` | the ruleset itself — rules, profile, guide discovery; loads on trigger during ordinary work |
-| `/tenets-init` | sets a repo up: guide, `tenets.json`, routing mandate, per-harness shims |
-| `/tenets-check` | audits the guide: structure, freshness, quality bars, anchors, template version |
-| `/tenets-audit [scope]` | severity-ranked compliance report for a repo, package, or subtree |
-| `/tenets-review [target]` | reviews a PR, branch, or dirty tree, plus an intent audit against the plan |
-| `/tenets-plan [request]` | requirement, contract, examples-as-tests, and green revertable slices |
-| `/tenets-realign [scope]` | ordered slice plan, applied on approval, one green commit per slice |
-
-The six workflow skills are user-invoked only: their descriptions stay out of context, so they never
-compete with the ruleset for activation during ordinary work.
-
-Then, in the target repository:
-
-1. **`/tenets-init`** (optionally `/tenets-init path/to/guide.md`) — inspects the repo, writes a
-   pre-filled project guide (default `docs/project-guide.md`), records the path in `tenets.json` at the repo
-   root (self-contained, survives skill reinstalls), and pins the routing mandate into AGENTS.md. The mandate is the determinism layer: skill
-   activation is description-matched and probabilistic; the always-loaded AGENTS line is not.
-2. Agents then follow the **loading protocol**: match the task against the index, Read every
-   matched rule file plus the language profile, and open the response with `Rules: <numbers|none>`
-   — with an explicit statement that brevity/minimalism instructions govern prose, never the
-   protocol. Measured **17/17 routing** (14 triggers, 3 negatives silent) and **7/7 rule abidance**
-   — scenarios whose answers must carry the concrete mechanism the profile fixes, all 7 of which
-   read the profile (see `evals/`).
-3. **`/tenets-check`** audits the guide later: structure, freshness against real files, quality
-   bars, anchor validity, template-version match — it is also the upgrade path when the template
-   version bumps.
-
-A hard per-prompt guarantee is available as an opt-in hook (documented in
-`skills/tenets/README.md`) at the cost of `Rules: none` announcements on non-code
-prompts.
+- **Four composable layers.** A rule states the principle; a profile binds it to one ecosystem's
+  mechanisms; the project guide states one repository's facts; a workflow skill is the procedure that
+  applies it. A new language is one ~500-word profile, not a rule fork.
+- **Rules are immutable; the guide is the only editable file.** Project-specific facts and recorded
+  deviations live there, and an audit suppresses findings a deviation covers.
+- **Anchors are API.** Sections are numbered (`Rule 4.3`), cited everywhere, and never renumbered —
+  new content appends.
 
 ## Harnesses
 
-Skills are the portable artifact — the same `SKILL.md` reaches every harness the `skills` CLI
-targets, and most of them read the canonical `.agents/skills/` directory directly:
+Skills are the portable artifact: the same `SKILL.md` reaches every harness the `skills` CLI targets,
+and most read the canonical `.agents/skills/` directory directly.
 
 | Harness | Typed invocation |
 | --- | --- |
@@ -101,14 +107,14 @@ targets, and most of them read the canonical `.agents/skills/` directory directl
 | opencode | through its skill tool, or a shim `/tenets-init` offers |
 | Gemini CLI | a shim `/tenets-init` offers (skills there are model-invoked only) |
 
-The skills avoid every harness-specific mechanism: no forked-context frontmatter, no hooks, no
-shell-output injection, and no positional argument placeholders — `$1` means the first argument in
-some harnesses and the second in others. Parallel work is described as intent, so a harness without
+Nothing depends on a single-harness mechanism: no forked-context frontmatter, no hooks, no
+shell-output injection, and no positional argument placeholders — `$1` is the first argument in some
+harnesses and the second in others. Parallel work is expressed as intent, so a harness without
 parallel workers runs the same procedure sequentially for the same output. Where a harness cannot
-type-invoke a skill, `/tenets-init` offers a two-line shim that points at the installed file rather
-than copying the procedure.
+type-invoke a skill, `/tenets-init` offers a two-line shim pointing at the installed file rather than
+copying the procedure.
 
-One thing to know on Gemini CLI: it does not read `AGENTS.md` unless `context.fileName` lists it, so
+One easily-missed detail: Gemini CLI does not read `AGENTS.md` unless `context.fileName` lists it, so
 the routing mandate needs a `GEMINI.md` pointer — `/tenets-init` offers that too.
 
 ## The primitive packages
@@ -119,46 +125,45 @@ ships it:
 - [`@tenets/result`](packages/result) — `Result<T, E>` / `ResultAsync<T, E>`, `ok`, `err`,
   `map`/`mapErr`/`andThen`/`match`/`unwrapOr`/`combine`, `trySync`/`tryAsync`. Frozen variants,
   thenable async composition, dependency-free.
-- [`@tenets/invariant`](packages/invariant) — `invariant()` throwing `InvariantError` with
-  stable metadata, plus `createInvariant` for production message stripping.
+- [`@tenets/invariant`](packages/invariant) — `invariant()` throwing `InvariantError` with stable
+  metadata, plus `createInvariant` for production message stripping.
 - [`@tenets/env`](packages/env) — composable typed environment contracts on Zod 4.5 (Rule 2.1's
   boundary layer): server/client partitions, deployed-environment rules, a Next.js adapter, and
   compiled parsing (~29× faster steady-state than uncached construction).
-
-Install from npm:
 
 ```sh
 npm install @tenets/result @tenets/invariant
 ```
 
-Each release also attaches the packed tarballs as assets for registry-free installs, and
-`packages/*` can be copied into a workspace directly. Your project guide records the location
-either way.
+Each release also attaches packed tarballs for registry-free installs, and `packages/*` can be
+copied into a workspace directly. Your project guide records the location either way.
 
 ## Evals
 
 ```sh
-evals/run.sh /path/to/repo-with-skill-installed
+evals/run.sh /path/to/repo-with-skills-installed
 ```
 
 Three suites, each scenario a fresh non-interactive session:
 
-- `scenarios.tsv` — routing: one positive per index row plus negatives that must stay silent.
-  Asserts index load, correct rule-file reads, and that **no workflow skill hijacked an ordinary
-  request**.
-- `abidance.tsv` — rule abidance: the answer must carry the concrete mechanism the profile fixes,
-  so a rule that loads but is not applied still fails.
-- `invocation.tsv` — command routing: explicit phrasings must reach the named workflow skill, and
-  adversarial near-misses must not.
+- `scenarios.tsv` — **routing**: one positive per index row plus negatives that must stay silent.
+  Asserts index load, correct rule-file reads, and that no workflow skill hijacked an ordinary
+  request.
+- `abidance.tsv` — **rule abidance**: the answer must carry the concrete mechanism the profile fixes,
+  so a rule that loads but goes unapplied still fails.
+- `invocation.tsv` — **command routing**: explicit phrasings must reach the named workflow skill, and
+  adversarial near-misses must reach none.
 
-Run all three before releasing any change to a description, the index, or a skill body. Requires an
+Latest results (`evals/v040/SUMMARY.md`): routing **20/20** with zero workflow-skill hijacks,
+abidance **7/7**, command routing **16/16**. Run all three before releasing any change to a
+description, the index, or a skill body — a ten-word edit has moved results before. Requires an
 authenticated `claude` CLI; runs cost real tokens.
 
 ## Layout
 
 | Path | Contents |
 | --- | --- |
-| `skills/tenets/SKILL.md` | Routing index, loading protocol, guide discovery |
+| `skills/tenets/SKILL.md` | Routing index, loading protocol, guide and profile discovery |
 | `skills/tenets/rules/` | The 14 rule files |
 | `skills/tenets/profiles/` | Language profiles; `typescript.md` ships |
 | `skills/tenets/templates/` | Project-guide template (WHAT / WHY / QUALITY BAR per slot) |
@@ -166,7 +171,8 @@ authenticated `claude` CLI; runs cost real tokens.
 | `skills/tenets-audit`, `-review`, `-plan`, `-realign` | The four workflow commands |
 | `skills/tenets-init`, `-check` | Setup and guide audit, plus the per-harness shim templates |
 | `packages/result`, `packages/invariant`, `packages/env` | The primitives and the env boundary layer (93 specs) |
-| `evals/` | Routing eval runner + scenarios |
+| `docs/` | Motivation, design, authoring |
+| `evals/` | Eval runner, three scenario suites, recorded results |
 | `examples/project-guide-example.md` | A real populated guide |
 
 ## Credits
@@ -181,12 +187,12 @@ specific additions:
 - **`@tenets/env`**: inspired by [t3-oss/t3-env](https://github.com/t3-oss/t3-env); adds
   composition/inheritance, deployed-environment rules with vacuous-guard refusal, and Zod 4.5
   compiled parsing.
-- **`@tenets/result`**: API lineage from [neverthrow](https://github.com/supermacro/neverthrow)
-  (and Rust's `Result`/fp-ts's `Either`); dependency-free frozen plain objects, thenable async
+- **`@tenets/result`**: API lineage from [neverthrow](https://github.com/supermacro/neverthrow) (and
+  Rust's `Result`, fp-ts's `Either`); dependency-free frozen plain objects, thenable async
   composition, `combine`.
 - **`@tenets/invariant`**: descends from Facebook's `invariant` and
-  [tiny-invariant](https://github.com/alexreardon/tiny-invariant); adds a typed `InvariantError`
-  with crash-reporting metadata and configurable production stripping.
+  [tiny-invariant](https://github.com/alexreardon/tiny-invariant); adds a typed `InvariantError` with
+  crash-reporting metadata and configurable production stripping.
 
 ## License
 
