@@ -30,8 +30,10 @@ needs to break one, that is a **recorded deviation** in your project guide, carr
 the reason — and an audit then suppresses findings that deviation covers, because your guide is
 authoritative for your repository. Disagreement is a first-class act here, not a quiet violation.
 
-What you should not expect is a menu. Take the set, record what you change, and the standard stays
-coherent; edit rules per project and it stops meaning anything.
+And if you think a rule is wrong in general rather than just wrong for your repository, say so:
+[open an issue](https://github.com/BarakChamo/tenets/issues), send a pull request, or fork the set
+and take it somewhere better. The anchors and the cited sources exist to make that argument
+concrete — name the number, say what it gets wrong, and the conversation has somewhere to start.
 
 ## Documentation
 
