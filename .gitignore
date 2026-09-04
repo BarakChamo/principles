@@ -3,3 +3,4 @@ dist/
 evals/raw-*.jsonl
 evals/results.txt
 evals/baseline/
+evals/v040/raw-*.jsonl
