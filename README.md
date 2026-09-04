@@ -13,8 +13,25 @@ including the parts you are ashamed of. So the standard is written down, loaded 
 anchor, and measured. → [Motivation](docs/motivation.md)
 
 Rules are dense and loaded on demand — two to four files, roughly 1.5–2.5k tokens for a given task —
-rather than crammed into an always-on context file. Humans get the same benefit: a small,
-opinionated, internally consistent standard with its deviations written down.
+rather than crammed into an always-on context file. Humans get the same benefit: a small, internally
+consistent standard with its deviations written down.
+
+## This is an opinionated ruleset
+
+It takes sides. Expected failures are typed values rather than exceptions; invariants are never
+caught to recover; coverage is feedback and never a target; mature tooling beats hand-built
+infrastructure even where safety-critical practice says the opposite; modules should be deep and
+exports few. Reasonable engineers disagree with several of those, and a neutral standard would have
+been useless — a rule that offends nobody decides nothing, and an agent cannot act on it.
+
+So the opinions are stated plainly, sourced, and given stable anchors you can argue with. Where a
+rule is a deliberate departure from its source, the rule says so and says why. Where your project
+needs to break one, that is a **recorded deviation** in your project guide, carrying the anchor and
+the reason — and an audit then suppresses findings that deviation covers, because your guide is
+authoritative for your repository. Disagreement is a first-class act here, not a quiet violation.
+
+What you should not expect is a menu. Take the set, record what you change, and the standard stays
+coherent; edit rules per project and it stops meaning anything.
 
 ## Documentation
 
