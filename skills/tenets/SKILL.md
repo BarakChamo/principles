@@ -34,11 +34,14 @@ Generic rules, never edited per project. Two files bind them to reality:
 Rules name the result type, the invariant assertion, and the doc, test, and packaging systems
 generically; the profile fixes the concrete names, the guide names where they live.
 
-The `tenets-*` workflow skills — `/tenets-audit`, `/tenets-review`, `/tenets-plan`,
-`/tenets-realign`, plus `/tenets-init` and `/tenets-check` — apply these rules as deliberate acts on
-explicit request. They share `workflow/findings.md` (the finding and severity contract) and
-`workflow/scope.md` (guide slots, git scope modes, thresholds, dimensions), and they cite anchors
-rather than restating rules.
+The `tenets-*` workflow skills apply these rules as deliberate acts on explicit request:
+`tenets-audit` (compliance report for a repo or subtree), `tenets-review` (a PR, branch, or dirty
+tree plus an intent audit against the plan), `tenets-plan`, `tenets-realign`, `tenets-init`, and
+`tenets-check`. **Each is a separate installed skill, invoked by its own name — not a file inside
+this one and not an argument to it.** They read `workflow/findings.md` (the finding and severity
+contract) and `workflow/scope.md` (guide slots, git scope modes, thresholds, dimensions) from here,
+and cite anchors rather than restating rules. A missing one means it was not installed: `skills add
+BarakChamo/tenets --all`.
 
 ## Loading protocol
 

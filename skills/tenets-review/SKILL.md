@@ -9,6 +9,7 @@ description: |
   "review my diff against the tenets", "did I build what the plan said". Not for ordinary code work,
   writing code, or auditing a whole codebase: those load the tenets skill or tenets-audit.
 disable-model-invocation: true
+allowed-tools: Read Glob Grep Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git merge-base:*) Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git branch:*) Bash(gh pr view:*) Bash(gh pr diff:*) Bash(gh repo view:*)
 metadata:
   version: '1.0.0'
   requires: 'tenets >= 2.0.0'
@@ -19,15 +20,23 @@ metadata:
 Read-only. Never commit, push, amend, post a PR comment, or apply a fix. Fixing is
 `/tenets-realign`'s job, and shipping is not this skill's business at all.
 
+## Locate the ruleset
+
+`<ruleset>` below is the `tenets` skill directory installed beside this one — **not** a path
+relative to the working directory. Resolve it once, in this order, and use it for every path after:
+`.claude/skills/tenets/`, `.agents/skills/tenets/`, then a glob for `**/skills/tenets/SKILL.md`
+outside `node_modules`. Nothing found → stop: `State: BLOCKED — install the tenets ruleset skill
+(skills add BarakChamo/tenets --all)`.
+
 ## Arguments
 
 Target: `$ARGUMENTS`. If that is empty or still contains a literal `$ARGUMENTS` or `{{args}}`,
 resolve the target from git state per the chain below. A target may be a PR number or URL, a branch,
 a ref range (`main...feature`), or a path.
 
-## Phase 1 — Resolve the ruleset
+## Phase 1 — Load the shared contracts
 
-Read `../tenets/workflow/scope.md` and `../tenets/workflow/findings.md`; read `../tenets/rules/09-code-review.md`,
+Read `<ruleset>/workflow/scope.md` and `<ruleset>/workflow/findings.md`; read `<ruleset>/rules/09-code-review.md`,
 which owns the severity vocabulary and the review checklist. If those paths do not resolve, stop:
 `State: BLOCKED — install the tenets ruleset skill`. Check `metadata.requires` against the ruleset's
 `metadata.version` and say which side is stale on a mismatch.
@@ -73,7 +82,7 @@ requirement is reported as informational and never blocks.
 ## Phase 5 — Review the diff
 
 Read the changed files, not only the hunks — a diff hides the context a contract lives in. Work
-Rule 9.2's checklist, then the dimension checklists in `../tenets/workflow/checklists/` that the
+Rule 9.2's checklist, then the dimension checklists in `<ruleset>/workflow/checklists/` that the
 diff's signals select, per `scope.md`. Fan out only above the threshold; above the adversarial
 threshold, run a second pass over the findings asking what the first pass missed.
 

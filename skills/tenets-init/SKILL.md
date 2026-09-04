@@ -8,6 +8,7 @@ description: |
   Use only when the user explicitly asks to set up or re-initialize the tenets ruleset in a
   repository, or runs /tenets-init. Not for ordinary code work or editing an existing guide by hand.
 disable-model-invocation: true
+allowed-tools: Read Glob Grep Write Edit Bash(git ls-files:*)
 metadata:
   version: '1.0.0'
   requires: 'tenets >= 2.0.0'
@@ -17,6 +18,14 @@ metadata:
 
 Set this repository up for the tenets ruleset.
 
+## Locate the ruleset
+
+`<ruleset>` below is the `tenets` skill directory installed beside this one — **not** a path
+relative to the working directory. Resolve it once, in this order, and use it for every path after:
+`.claude/skills/tenets/`, `.agents/skills/tenets/`, then a glob for `**/skills/tenets/SKILL.md`
+outside `node_modules`. Nothing found → stop: `State: BLOCKED — install the tenets ruleset skill
+(skills add BarakChamo/tenets --all)`.
+
 ## Arguments
 
 Guide path: `$ARGUMENTS`. If that is empty or still contains a literal `$ARGUMENTS` or `{{args}}`,
@@ -25,7 +34,7 @@ AGENTS.md/CLAUDE.md, else `docs/project-guide.md` — and say which you chose.
 
 ## Steps
 
-1. Read `../tenets/templates/project-guide.md`. If that path does not resolve, stop:
+1. Read `<ruleset>/templates/project-guide.md`. If that path does not resolve, stop:
    `State: BLOCKED — install the tenets ruleset skill (skills add BarakChamo/tenets --all)`.
 2. Detect the language profile: pick the `profiles/<name>.md` file matching the repository's
    dominant language and ecosystem, default `typescript`. If no shipped profile fits, say so and
@@ -49,8 +58,13 @@ AGENTS.md/CLAUDE.md, else `docs/project-guide.md` — and say which you chose.
    the skill index, Read the matched rule files and the language profile, open responses with
    `Rules: <numbers|none>`, stating that this overrides brevity/minimalism instructions. The mandate
    needs an always-loaded file; guide and profile discovery do not.
-7. Add one disambiguation line to the same mandate: ordinary code work loads the `tenets` skill;
-   the `tenets-*` workflow skills fire only on an explicit audit, review, plan, or realign request.
+7. Add a directive line to the same mandate, **naming every workflow command** so agents know they
+   exist without their descriptions costing context: ordinary code work loads the `tenets` skill,
+   and a request to audit code, review changes, plan work, realign code, set the ruleset up, or
+   check the project guide invokes the matching skill — `/tenets-audit`, `/tenets-review`,
+   `/tenets-plan`, `/tenets-realign`, `/tenets-init`, `/tenets-check` — rather than improvising the
+   procedure. Naming them is what makes them discoverable, since their descriptions deliberately
+   stay out of context.
 8. **Offer** the per-harness command shims — never write them unasked. For each harness directory
    the repository actually has, the shim is a two-line pointer at the installed skill, so the
    procedure itself is never duplicated. Templates live in `shims/` beside this skill:

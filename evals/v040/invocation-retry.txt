@@ -1,0 +1,3 @@
+PASS|I05|expect=skill:tenets-plan|rule:14|idx=Y|rules=01,02,14|wf=-|prof=Y|decl=Y|req=-
+FAIL|I07|expect=skill:tenets-check|idx=Y|rules=-|wf=-|prof=N|decl=N|req=-
+FAIL|I08|expect=skill:tenets-init|idx=N|rules=-|wf=-|prof=N|decl=N|req=-

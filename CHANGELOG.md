@@ -30,6 +30,11 @@ procedure sequentially for the same output. Claude Code, Codex and Cursor invoke
 directly; `/tenets-init` offers two-line shims for Gemini CLI, opencode and Cline, plus the
 `GEMINI.md` pointer Gemini CLI needs before it will read AGENTS.md at all.
 
+Each workflow skill resolves the ruleset by locating the installed `tenets` skill directory rather
+than by a path relative to the working directory — a live smoke test caught the difference — and
+pre-approves its own read-only git commands through the spec's `allowed-tools`, so a review does not
+stall on a permission prompt.
+
 The eval harness gained a real gate: it now records which skill fired, so a workflow skill answering
 an ordinary request fails the run instead of silently passing as the ruleset. A new
 `evals/invocation.tsv` covers command routing and adversarial near-misses. All packages at 0.4.0.

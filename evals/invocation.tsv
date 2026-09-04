@@ -1,11 +1,11 @@
 # Command-routing eval: explicit requests must reach the named workflow skill, and near-misses
 # must not fire one at all. Expectation forms: skill:<name> | no-workflow
-# id	expectation	prompt	require-regex
+# id	expectation (skill:<name>, alternatives with |, rule:<NN>, or no-workflow)	prompt	require-regex
 I01	skill:tenets-audit	Audit this repository against the tenets ruleset and tell me how aligned it is.
 I02	skill:tenets-audit	Check the compliance of libs/text with the engineering rules.
 I03	skill:tenets-review	Review my uncommitted changes against the tenets rules.
 I04	skill:tenets-review	Did I build what the plan said? Review the diff against the rules.
-I05	skill:tenets-plan	Plan adding a slug helper to libs/text with the tenets.
+I05	skill:tenets-plan|rule:14	Plan adding a slug helper to libs/text with the tenets.
 I06	skill:tenets-realign	Realign apps/ops with the tenets ruleset.
 I07	skill:tenets-check	Check whether this repository's tenets project guide is still accurate.
 I08	skill:tenets-init	Set this repository up for the tenets ruleset from scratch.

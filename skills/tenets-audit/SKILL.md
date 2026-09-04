@@ -9,6 +9,7 @@ description: |
   this repo", "check compliance", "how aligned is this package". Not for ordinary code work,
   single-file edits, reviewing a diff, or answering a rules question: those load the tenets skill.
 disable-model-invocation: true
+allowed-tools: Read Glob Grep Bash(git ls-files:*) Bash(git diff:*) Bash(wc:*)
 metadata:
   version: '1.0.0'
   requires: 'tenets >= 2.0.0'
@@ -19,6 +20,14 @@ metadata:
 Read-only. This skill never edits code, never commits, and writes a report file only when the user
 asks for one or names a path.
 
+## Locate the ruleset
+
+`<ruleset>` below is the `tenets` skill directory installed beside this one — **not** a path
+relative to the working directory. Resolve it once, in this order, and use it for every path after:
+`.claude/skills/tenets/`, `.agents/skills/tenets/`, then a glob for `**/skills/tenets/SKILL.md`
+outside `node_modules`. Nothing found → stop: `State: BLOCKED — install the tenets ruleset skill
+(skills add BarakChamo/tenets --all)`.
+
 ## Arguments
 
 Scope: `$ARGUMENTS`. If that is empty or still contains a literal `$ARGUMENTS` or `{{args}}`, audit
@@ -26,11 +35,11 @@ the repository root and say so in the first output line. The scope may be one or
 workspace name, or a rule anchor to audit for specifically (`Rule 02.1`). `--report [path]` writes
 the report to disk in addition to reporting inline.
 
-## Phase 1 — Resolve the ruleset
+## Phase 1 — Load the shared contracts
 
-Read `../tenets/workflow/scope.md` and `../tenets/workflow/findings.md`. If that path does not
+Read `<ruleset>/workflow/scope.md` and `<ruleset>/workflow/findings.md`. If that path does not
 resolve, stop: `State: BLOCKED — install the tenets ruleset skill (skills add BarakChamo/tenets
---all)`. Check `../tenets/SKILL.md`'s `metadata.version` satisfies this skill's
+--all)`. Check `<ruleset>/SKILL.md`'s `metadata.version` satisfies this skill's
 `metadata.requires`; on a mismatch say which side is stale before continuing, since anchors cited
 against an older ruleset may not exist.
 

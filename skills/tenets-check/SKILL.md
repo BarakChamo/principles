@@ -8,6 +8,7 @@ description: |
   — including after refactors that change commands or workspaces, or when upgrading the ruleset. Not
   for auditing code against the rules: that is tenets-audit.
 disable-model-invocation: true
+allowed-tools: Read Glob Grep Bash(git ls-files:*)
 metadata:
   version: '1.0.0'
   requires: 'tenets >= 2.0.0'
@@ -15,13 +16,21 @@ metadata:
 
 # Tenets check
 
-Audit this repository's tenets project guide. Read `../tenets/templates/project-guide.md`
+Audit this repository's tenets project guide. Read `<ruleset>/templates/project-guide.md`
 for comparison; if that path does not resolve, stop: `State: BLOCKED — install the tenets ruleset
 skill`.
 
 Locate it via `tenets.json`'s `guide` field at the repository root, else the `Project guide:` line
 in AGENTS.md/CLAUDE.md, else the default `docs/project-guide.md`; missing guide → report that and
 suggest `/tenets-init`.
+
+## Locate the ruleset
+
+`<ruleset>` below is the `tenets` skill directory installed beside this one — **not** a path
+relative to the working directory. Resolve it once, in this order, and use it for every path after:
+`.claude/skills/tenets/`, `.agents/skills/tenets/`, then a glob for `**/skills/tenets/SKILL.md`
+outside `node_modules`. Nothing found → stop: `State: BLOCKED — install the tenets ruleset skill
+(skills add BarakChamo/tenets --all)`.
 
 ## Checks
 

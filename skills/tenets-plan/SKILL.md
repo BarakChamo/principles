@@ -9,6 +9,7 @@ description: |
   tenets", "give me a tenets plan for X". Not for ordinary code work or a single obvious change:
   those load the tenets skill, whose Rule 14 covers planning inline.
 disable-model-invocation: true
+allowed-tools: Read Glob Grep Bash(git ls-files:*)
 metadata:
   version: '1.0.0'
   requires: 'tenets >= 2.0.0'
@@ -16,14 +17,22 @@ metadata:
 
 # Tenets plan
 
+## Locate the ruleset
+
+`<ruleset>` below is the `tenets` skill directory installed beside this one — **not** a path
+relative to the working directory. Resolve it once, in this order, and use it for every path after:
+`.claude/skills/tenets/`, `.agents/skills/tenets/`, then a glob for `**/skills/tenets/SKILL.md`
+outside `node_modules`. Nothing found → stop: `State: BLOCKED — install the tenets ruleset skill
+(skills add BarakChamo/tenets --all)`.
+
 ## Arguments
 
 Request: `$ARGUMENTS`. If that is empty or still contains a literal `$ARGUMENTS` or `{{args}}`, ask
 for the requirement in one sentence: `State: NEEDS_CONTEXT — what should this do, in product terms?`
 
-## Phase 1 — Ruleset and stop conditions
+## Phase 1 — Rules and stop conditions
 
-Read `../tenets/rules/14-planning.md` first — it owns the planning contract this skill executes.
+Read `<ruleset>/rules/14-planning.md` first — it owns the planning contract this skill executes.
 Then read rules 01, 02, 04, 10 and 11, adding 12 or 13 only when storage or request handling is in
 play. If those paths do not resolve, stop: `State: BLOCKED — install the tenets ruleset skill`.
 
@@ -32,7 +41,7 @@ Rule 14.1's six lines inline and say `Rule 1.4 satisfied inline; no plan file ne
 
 ## Phase 2 — Guide context
 
-Read only these guide slots (`../tenets/workflow/scope.md` names the discovery order): Documentation
+Read only these guide slots (`<ruleset>/workflow/scope.md` names the discovery order): Documentation
 map for the plan template and plan location, Commands for the gate, Tests for runner and suffixes,
 Workspace map, Shared primitives, Change delivery, and recorded deviations. With no guide, use
 `templates/implementation-plan.md` beside this skill, report the gate as unknown, ask once for the

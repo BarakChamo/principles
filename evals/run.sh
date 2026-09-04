@@ -56,7 +56,11 @@ rules_read = sorted(r for r in reads if r not in ('IDX', 'PROF'))
 workflow = sorted(s for s in fired if s.startswith('tenets-'))
 # Expectation forms: none | any | <rule csv> | skill:<name> | no-workflow
 if expect.startswith('skill:'):
-    routed = expect.split(':', 1)[1] in fired
+    # Alternatives separated by '|': skill:<name> or rule:<NN>. A request that the ruleset answers
+    # correctly on its own (Rule 14 planning, say) is not a routing failure.
+    alts = expect.split('|')
+    routed = any((a.split(':', 1)[1] in fired) if a.startswith('skill:')
+                 else (a.split(':', 1)[1] in rules_read) for a in alts)
 elif expect == 'no-workflow':
     routed = not workflow
 elif expect == 'none':

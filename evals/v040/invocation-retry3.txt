@@ -1,0 +1,2 @@
+PASS|I07|expect=skill:tenets-check|idx=Y|rules=-|wf=tenets-check|prof=N|decl=Y|req=-
+PASS|I07b|expect=skill:tenets-check|idx=Y|rules=-|wf=tenets-check|prof=N|decl=N|req=-

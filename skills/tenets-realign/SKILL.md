@@ -9,6 +9,7 @@ description: |
   "realign this package to the tenets", "fix the rule violations in apps/api". Not for ordinary code
   work, a single edit, or a read-only assessment: those load the tenets skill or tenets-audit.
 disable-model-invocation: true
+allowed-tools: Read Glob Grep Edit Write Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(git add:*) Bash(git commit:*) Bash(git checkout --:*)
 metadata:
   version: '1.0.0'
   requires: 'tenets >= 2.0.0'
@@ -23,16 +24,24 @@ from tool configuration.
 approved slice, edit the rule files or the project guide, or commit with the gate red. One commit
 per slice, and nothing is edited before the user approves.
 
+## Locate the ruleset
+
+`<ruleset>` below is the `tenets` skill directory installed beside this one — **not** a path
+relative to the working directory. Resolve it once, in this order, and use it for every path after:
+`.claude/skills/tenets/`, `.agents/skills/tenets/`, then a glob for `**/skills/tenets/SKILL.md`
+outside `node_modules`. Nothing found → stop: `State: BLOCKED — install the tenets ruleset skill
+(skills add BarakChamo/tenets --all)`.
+
 ## Arguments
 
 Scope: `$ARGUMENTS`. If that is empty or still contains a literal `$ARGUMENTS` or `{{args}}`, stop:
 `State: NEEDS_CONTEXT — name a scope (a path, package, or rule anchor); an unbounded whole-repo
 realign is not a slice.` A trailing `-- "<command>"` overrides the acceptance gate command.
 
-## Phase 1 — Ruleset and preconditions
+## Phase 1 — Shared contracts and preconditions
 
-Read `../tenets/workflow/scope.md` and `../tenets/workflow/findings.md`; read
-`../tenets/rules/10-decision-framework.md` and `../tenets/rules/11-change-delivery.md`. Missing
+Read `<ruleset>/workflow/scope.md` and `<ruleset>/workflow/findings.md`; read
+`<ruleset>/rules/10-decision-framework.md` and `<ruleset>/rules/11-change-delivery.md`. Missing
 path → `State: BLOCKED — install the tenets ruleset skill`.
 
 Then check the working state, in this order:

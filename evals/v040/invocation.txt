@@ -1,0 +1,16 @@
+PASS|I01|expect=skill:tenets-audit|idx=N|rules=-|wf=tenets-audit|prof=N|decl=N|req=-
+PASS|I02|expect=skill:tenets-audit|idx=N|rules=-|wf=tenets-audit|prof=N|decl=N|req=-
+PASS|I03|expect=skill:tenets-review|idx=Y|rules=-|wf=tenets-review|prof=N|decl=N|req=-
+PASS|I04|expect=skill:tenets-review|idx=N|rules=-|wf=tenets-review|prof=N|decl=N|req=-
+FAIL|I05|expect=skill:tenets-plan|idx=Y|rules=01,02,03,04,05,07,14|wf=-|prof=Y|decl=Y|req=-
+PASS|I06|expect=skill:tenets-realign|idx=Y|rules=-|wf=tenets-realign|prof=N|decl=N|req=-
+FAIL|I07|expect=skill:tenets-check|idx=Y|rules=-|wf=-|prof=N|decl=N|req=-
+FAIL|I08|expect=skill:tenets-init|idx=Y|rules=-|wf=-|prof=N|decl=N|req=-
+PASS|X01|expect=no-workflow|idx=Y|rules=01,03,04,14|wf=-|prof=Y|decl=Y|req=-
+PASS|X02|expect=no-workflow|idx=Y|rules=01,02,03|wf=-|prof=N|decl=Y|req=-
+PASS|X03|expect=no-workflow|idx=Y|rules=11|wf=-|prof=N|decl=Y|req=-
+PASS|X04|expect=no-workflow|idx=Y|rules=02,09|wf=-|prof=Y|decl=Y|req=-
+PASS|X05|expect=no-workflow|idx=Y|rules=07,10|wf=-|prof=N|decl=Y|req=-
+PASS|X06|expect=no-workflow|idx=Y|rules=01,03|wf=-|prof=N|decl=N|req=-
+PASS|X07|expect=no-workflow|idx=N|rules=-|wf=-|prof=N|decl=N|req=-
+PASS|X08|expect=no-workflow|idx=Y|rules=10,12|wf=-|prof=N|decl=Y|req=-
