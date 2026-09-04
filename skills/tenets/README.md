@@ -1,7 +1,7 @@
 # tenets
 
-A generic, distilled engineering ruleset for monorepos, packaged as an agent skill: 14
-language-neutral rules (~6,300 words) behind a trigger-routing index, a language profile that binds
+A generic, distilled engineering ruleset for monorepos, packaged as an agent skill: 15
+language-neutral rules (~7,000 words) behind a trigger-routing index, a language profile that binds
 them to one ecosystem, one editable per-project translation file (the project guide), and two
 commands to create and audit it.
 
@@ -64,7 +64,7 @@ guide's job. Set `tenets.json`'s `profile` field to the file's name; `typescript
 ## Layout
 
 - `SKILL.md` — the routing index; loads on trigger, points to one rule file per situation.
-- `rules/` — 14 rule files, stable section anchors (`Rule 4.3`); anchors never renumber.
+- `rules/` — 15 rule files, stable section anchors (`Rule 4.3`); anchors never renumber.
 - `profiles/` — one file per language/ecosystem; `typescript.md` ships, and the profile loads with
   the rules.
 - `templates/project-guide.md` — the editable translation template (WHAT/WHY/QUALITY BAR per slot).

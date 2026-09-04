@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.5.0 — 2026-09-04
+
+Concurrent change, and decomposition for locality.
+
+**Rule 15 Concurrent Change** is new: parallel work is partitioned by the files it will *write*, not
+by how the task is described; convergence points — registries, barrels, lockfiles, generated types,
+migration sequences, changelogs, the guide itself — are named and made append-only, generated, or
+singly owned; a plan is re-derived against what actually landed rather than replayed; integration
+order is declared before work starts; and if the natural split fights the structure, the structure
+is wrong. Rule 6.3's timestamped inbox filenames turn out to have been the first instance of this
+all along.
+
+**Rule 7.10 Decomposition for Locality** appends the other half: organize a workspace's interior by
+capability rather than technical layer, pass the deletion test (removing a capability deletes one
+directory and unwires one export), apply 7.2's internal-import ban at module granularity, and expose
+a family of implementations through one port plus composition at the consumer — never a broad
+aggregator re-exporting every implementation.
+
+The TypeScript profile gains a boundary-enforcement section ordered by strength, with the facts
+verified rather than assumed: `exports` is the only unbypassable layer, workspace-graph tools cannot
+see inside a package, oxlint has no `import/no-restricted-paths` and its Rust regex has no
+lookahead, and `@internal` with `stripInternal` enforces nothing at all.
+
+New docs: `docs/patterns/provider-families.md` works the fan-out/fan-in problem end to end for
+interchangeable implementations, and `docs/design.md` gains a concurrency section plus a
+**Considered and deferred** record for two packages that were designed and then declined — a
+first-party boundary linter (it would duplicate a dependency analyzer, which Rule 10.4 forbids, and
+`exports` plus the workspace graph already cover it when slices are workspaces) and a change-coupling
+analyzer (a diagnostic nothing yet depends on). Both carry the criteria that would change the answer.
+
+All packages at 0.5.0.
+
 ## 0.4.0 — 2026-09-04
 
 Workflow skills, and one `tenets` namespace.

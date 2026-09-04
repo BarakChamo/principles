@@ -1,7 +1,7 @@
 # tenets
 
 An engineering standard for coding agents, distilled from the canon and packaged as installable
-skills: **14 language-neutral rules behind a trigger-routing index, a language profile that binds
+skills: **15 language-neutral rules behind a trigger-routing index, a language profile that binds
 them to one ecosystem, one editable per-project file, six commands that apply the rules to real
 code, the primitives the TypeScript profile requires, and an eval suite** that measures whether
 agents actually load and follow the rules.
@@ -42,6 +42,7 @@ concrete — name the number, say what it gets wrong, and the conversation has s
 | [Motivation](docs/motivation.md) | Why the standard has to be explicit, and why reviewing output does not scale |
 | [Design](docs/design.md) | The four composable layers, anchors as API, progressive disclosure, measured determinism |
 | [Authoring](docs/authoring.md) | Adding a rule, writing a profile, populating a guide, writing a portable workflow skill |
+| [Provider families](docs/patterns/provider-families.md) | Fan out by workspace, fan in by composition — the shape for many interchangeable implementations |
 
 ## Install
 
@@ -102,6 +103,7 @@ Each rule distills a respected source, keeping its teeth and recording every del
 | 12 Data and State | One system of record per entity; everything else is derived with a rebuild path; no dual-writes; expand–contract migrations with n−1 compatibility | Kleppmann's *DDIA*, *Refactoring Databases*, boring-technology practice |
 | 13 Serverless Runtime | Instances are caches, never truth; waterfalls are the #1 perf bug; every cache entry has an invalidation story; retries are ambient so idempotency is mandatory; everything is bounded | twelve-factor, Well-Architected serverless practice |
 | 14 Planning | The plan is the contract stated before the code: boundary, API, error cases, invariants, tests, docs; examples become the test list; requirement before mechanism | Design by Contract, BDD example-first practice |
+| 15 Concurrent Change | Parallel work is partitioned by write set, not by task description; convergence points are named and made append-only, generated, or singly owned; a plan is re-derived after another change lands; if the split fights the structure, the structure is wrong | Conway 1968, Team Topologies (Skelton & Pais), trunk-based development (DORA), Parnas 1972 via Rule 7.10 |
 
 Three structural properties hold the set together — the reasoning is in [design](docs/design.md):
 
@@ -183,7 +185,7 @@ authenticated `claude` CLI; runs cost real tokens.
 | Path | Contents |
 | --- | --- |
 | `skills/tenets/SKILL.md` | Routing index, loading protocol, guide and profile discovery |
-| `skills/tenets/rules/` | The 14 rule files |
+| `skills/tenets/rules/` | The 15 rule files |
 | `skills/tenets/profiles/` | Language profiles; `typescript.md` ships |
 | `skills/tenets/templates/` | Project-guide template (WHAT / WHY / QUALITY BAR per slot) |
 | `skills/tenets/workflow/` | Shared contracts for the workflow skills: findings, scope, checklists |

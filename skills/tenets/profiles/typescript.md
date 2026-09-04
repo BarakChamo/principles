@@ -76,6 +76,35 @@ cohesive modules and broad root barrels are prohibited. Package-internal referen
 `imports` aliases such as `#internal/*`. Cross-workspace imports use the installed package name,
 never a path into another workspace's `src`.
 
+## Boundary enforcement (Rules 07.2, 07.3, 07.10)
+
+Mechanisms, strongest first. Prefer the ones the platform already gives you (Rule 10.4).
+
+- **`package.json` `exports` is the only unbypassable layer.** An unlisted subpath fails to resolve
+  with `ERR_PACKAGE_PATH_NOT_EXPORTED`, so a slice's internals are unreachable rather than merely
+  discouraged. `imports` with `#internal/*` marks intra-package internals and requires
+  `moduleResolution` `bundler`, `node16`, or `nodenext`; `resolvePackageJsonImports: false` silently
+  disables it.
+- **Workspace-graph enforcement** (`turbo boundaries`, `@nx/enforce-module-boundaries`) polices
+  package seams, including whether an import is a declared dependency at all, and cascades through
+  dependency chains. It cannot see inside a package, so slice-to-slice rules within one workspace are
+  out of reach — promoting the slice to a workspace is usually the cheaper fix (Rule 7.10). Check
+  the stability of whichever you adopt: Turborepo marks boundaries experimental, and the Nx rule
+  requires an Nx project graph.
+- **Unused exports** are how "smallest useful surface" (Rule 7.3) gets checked. `knip` reports
+  them, but only counts a barrel's exports when `includeEntryExports` is enabled — off by default,
+  so public-surface enforcement is opt-in.
+- **Lint-level import rules** cover cycles and coarse path bans. Note for oxlint specifically: it
+  implements `import/no-cycle` and `eslint/no-restricted-imports` (with `paths` and `patterns`) but
+  **not** `import/no-restricted-paths`, and its Rust regex has no lookahead — so the usual "any
+  slice except my own" pattern cannot be expressed that way.
+- **A path-pattern dependency linter** — `dependency-cruiser` is the mature option — is the heavier
+  fallback when the above genuinely cannot express the rule. Its cross-slice rule uses a capture
+  group with a backreference written `$1` (not `\1`), and the group must appear in both the `from`
+  and `to` patterns or the self-exclusion silently fails.
+- **`@internal` with `stripInternal` enforces nothing** — it affects declaration emit only, and the
+  compiler does not verify the result stays consistent. Treat it as documentation.
+
 ## Runtime (Rule 13)
 
 Rule 13 applies to JavaScript serverless platforms: `Promise.all` for independent work, module-scope

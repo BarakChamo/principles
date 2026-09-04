@@ -90,3 +90,24 @@ explicit task scope or an ADR-level reason.
 Consult the project glossary before naming domain APIs or docs; add durable vocabulary there, or
 write an inbox entry when a term needs curation. Any concept touched by two workspaces, commands, or
 docs gets one shared definition — never a parallel name for something the glossary already owns.
+
+## 7.10 Decomposition for Locality
+
+Organize a workspace's interior by capability, not by technical layer. `controllers/`, `services/`
+and `models/` scatter one capability across three directories, so every change is wide and every
+concurrent change overlaps (Rule 15.1). Group by the decision a module hides, which is what makes
+a change local (Parnas).
+
+**The deletion test**: removing a capability should delete one directory and unwire one export. If
+it takes edits across four layers, the boundary is in the wrong place.
+
+Rule 7.2's internal-import ban applies at module granularity too: a sibling capability's
+unpublished files are as off-limits as another workspace's internals. A capability earns *workspace*
+status — not merely directory status — when it needs independent ownership, release, or testing,
+which is also the point at which its boundary becomes machine-enforced rather than conventional.
+
+Expose a family of implementations through one port plus composition at the consumer: the consumer
+wires the implementations it actually uses, so nothing imports them all. Never a broad aggregator
+re-exporting every implementation (Rules 7.1, 7.3) — it pulls every dependency into every consumer
+and turns each addition into an edit of one shared file (Rule 15.2). A hand-maintained registry is a
+recorded deviation with that cost stated.

@@ -19,7 +19,7 @@ workflow skill says *here is how to find every place that rule is violated and f
 slices*. Four sentences, four owners, no duplication.
 
 The practical payoff is that porting the standard to a new repository means filling one template,
-and porting it to a new language means writing one ~500-word profile rather than forking fourteen
+and porting it to a new language means writing one ~500-word profile rather than forking fifteen
 rule files.
 
 ## Why rules are immutable and the guide is not
@@ -53,7 +53,7 @@ index — a table mapping situations to rule files — and an agent reads the tw
 actually matched, roughly 1.5–2.5k tokens instead of the whole corpus.
 
 The same discipline runs through every layer: workflow skills read the guide *slots* they need
-rather than the whole guide, audit workers get one dimension's checklist rather than fourteen rules,
+rather than the whole guide, audit workers get one dimension's checklist rather than fifteen rules,
 and the shared contracts live in `workflow/` so six skills reference one copy. Nothing that could be
 loaded on demand is loaded eagerly.
 
@@ -98,6 +98,41 @@ never the protocol. A scorer that matched file paths was crediting the ruleset w
 had actually answered — invisible failure, fixed by recording which skill fired. A live smoke test
 caught relative paths resolving against the session's working directory rather than the skill file.
 None of those were visible by reading the files.
+
+## Designing for concurrent change
+
+Several agents editing one repository makes contention a design property rather than a merge
+problem. The mechanism is old: work parallelizes only up to its serial fraction, and in a codebase
+the serial fraction is the set of files every change of a kind must touch — registries, barrels,
+lockfiles, generated types, migration sequences, changelogs.
+
+Those convergence points cannot be designed away, only named and made cheap: append-only, generated,
+or owned by one change at a time. Rule 6.3 has quietly done this since the beginning — the learnings
+inbox uses timestamped filenames precisely so concurrent writers cannot collide — and Rule 15
+generalizes it. Rule 7.10 supplies the other half: decomposition that keeps changes local, so the
+write sets are disjoint in the first place.
+
+Two things follow that are easy to get backwards. Partitions are defined by what work *writes*, not
+by how the task is described — "you take Stripe, I take PayPal" is not a partition while both edit
+one registry. And when the natural split fights the structure, the structure is what is wrong; the
+communication paths a structure permits are the ones its design ends up reflecting (Conway).
+
+## Considered and deferred
+
+Recorded so these are decisions rather than folklore:
+
+- **A first-party boundary linter.** Attractive, because nothing in a typical TypeScript stack
+  enforces slice isolation *inside* a package. Rejected for now: if slices are workspaces — which
+  Rule 7.10 recommends anyway — `package.json` `exports` and the workspace graph already enforce it,
+  the first at resolution level where it cannot be ignored. Building one would duplicate a dependency
+  analyzer, which Rule 10.4 explicitly forbids. Revisit only when a real repository has many
+  intra-package slices that cannot become workspaces, *and* lint-level import restrictions
+  demonstrably cannot express the rule, *and* an existing graph tool is measurably too slow.
+- **A change-coupling analyzer.** Computing which files change together from version-control history
+  would let a repository *measure* its convergence points instead of guessing them, which is exactly
+  what Rule 15.2 asks for. The metric is established (share of commits touching one file that also
+  touch the other, filtered by shared-revision count). Deferred as a diagnostic rather than a gate:
+  useful, but nothing depends on it, and Rule 1.2 says not yet.
 
 ## Failure modes designed against
 

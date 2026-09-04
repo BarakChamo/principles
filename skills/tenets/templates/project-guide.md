@@ -37,8 +37,10 @@ infer from code or config; never restate what a README or the rules already say.
 <!-- WHAT: the package namespace (Rule 7.1); one row per workspace with its family
      (app/package/lib) and one-line responsibility; the permitted dependency directions and the
      tool that enforces them (Rule 7.2). If directory names differ from the rule vocabulary
-     (apps/packages/libs), state the mapping here.
-     WHY: this is how an agent decides where new code lives and what it may import.
+     (apps/packages/libs), state the mapping here. Name any convergence points — registries,
+     generated files, migration sequences — and who owns them (Rule 15.2).
+     WHY: this is how an agent decides where new code lives and what it may import, and where
+     concurrent work will collide.
      QUALITY BAR: every workspace appears; an agent can place a new module without asking. -->
 
 ## Shared primitives

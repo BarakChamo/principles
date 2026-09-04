@@ -21,3 +21,9 @@
 - Are function shapes hard to misuse: object parameter for multi-input operations, units in names,
   boolean prefixes, narrow return types? (3.4)
 - Does any new package earn its existence by hiding a real policy, rather than grouping helpers? (7.5)
+- Is the workspace organized by capability rather than technical layer, so one change stays local?
+  (7.10)
+- Would removing a capability delete one directory and unwire one export — the deletion test? (7.10)
+- Does any module import a sibling capability's unpublished files? (7.2 at module granularity, 7.10)
+- Is a family of implementations exposed through one port with composition at the consumer, rather
+  than a broad aggregator re-exporting every implementation? (7.10, 7.1, 7.3)

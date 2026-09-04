@@ -58,8 +58,8 @@ what you meant.
 Three things, and the design of this ruleset follows from them.
 
 **Judgment has to be encoded, not just conclusions.** A rule that says what to do without saying
-when it stops applying produces cargo-cult compliance. So the calibrations are written down: coverage
-is feedback rather than a target, and the tool-native ordering deliberately inverts the
+when it stops applying produces cargo-cult compliance. So the calibrations are written down:
+coverage is feedback rather than a target, and the tool-native ordering deliberately inverts the
 zero-dependency instinct that safety-critical code depends on. An agent that knows *why* a rule
 exists can tell you when your request contradicts it — which is more valuable than obedience.
 

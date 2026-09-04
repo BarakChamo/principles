@@ -18,3 +18,8 @@
 - Does new enforcement prefer native tool capability over custom policy code? (08, 10.4)
 - Are cache declarations and generated-state exclusions accurate and aligned across tools? (8.3)
 - Do hooks stay cheap and scoped, never running integration or end-to-end work? (8.2)
+- If work was split across agents or worktrees, were the write sets disjoint — or did two changes
+  edit one file? (15.1)
+- Are the convergence points this change touched append-only, generated, or singly owned? (15.2)
+- Was the plan re-derived against what actually landed, rather than replayed against stale state?
+  (15.4)

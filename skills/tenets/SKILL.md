@@ -14,7 +14,7 @@ description: |
   modeling, caching, or migrating data; writing request handlers, queues, and jobs; capturing
   learnings or non-obvious discoveries; or deciding where code, data, or knowledge should live.
 metadata:
-  version: '2.0.0'
+  version: '2.1.0'
   template-version: '1'
 ---
 
@@ -71,6 +71,7 @@ new sections append, existing ones never renumber.
 | [12 Data and State](rules/12-data-and-state.md)                 | new entities, store choice, cross-store caching or sync, migrations and backfills                              |
 | [13 Serverless Runtime](rules/13-serverless-runtime.md)         | request handlers, fetch sequences, cache layers, queue/webhook consumers, long-running jobs                    |
 | [14 Planning](rules/14-planning.md)                             | before non-trivial work: naming the boundary, contract, examples, and slices; a request that names a mechanism |
+| [15 Concurrent Change](rules/15-concurrent-change.md)           | splitting work across agents or worktrees; two changes in flight over one area; a plan that may have gone stale |
 
 Rules 01–02 apply to nearly all code work; the rest load on trigger.
 
